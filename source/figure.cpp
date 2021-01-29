@@ -2,48 +2,48 @@
 #include <cmath>
 #include <iostream>
 
-Figure::Figure(Point _figureArray[7]) :
+Detail::Detail(Point _figureArray[7]) :
     QGraphicsItem()
 {
     for (int i = 0; i < 7; i++) {
-        figureArray[i] = _figureArray[i];
+        FigureArray[i] = _figureArray[i];
     }
 }
 
-Figure::~Figure()
+Detail::~Detail()
 {
 
 }
 
-QRectF Figure::boundingRect() const
+QRectF Detail::boundingRect() const
 {
     return QRectF(-580, -425, 1161, 851);   // Ограничиваем область, в которой лежит треугольник
 }
 
-void Figure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void Detail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
         QPolygon polygon;
 
         painter->setPen(QPen(Qt::blue));
 
-        painter->drawLine(figureArray[0].X, figureArray[0].Y, figureArray[1].X, figureArray[1].Y);
-        painter->drawLine(figureArray[1].X, figureArray[1].Y, figureArray[2].X, figureArray[2].Y);
-        painter->drawLine(figureArray[2].X, figureArray[2].Y, figureArray[3].X, figureArray[3].Y);
-        painter->drawLine(figureArray[3].X, figureArray[3].Y, figureArray[0].X, figureArray[0].Y);
+        painter->drawLine(FigureArray[0].X, FigureArray[0].Y, FigureArray[1].X, FigureArray[1].Y);
+        painter->drawLine(FigureArray[1].X, FigureArray[1].Y, FigureArray[2].X, FigureArray[2].Y);
+        painter->drawLine(FigureArray[2].X, FigureArray[2].Y, FigureArray[3].X, FigureArray[3].Y);
+        painter->drawLine(FigureArray[3].X, FigureArray[3].Y, FigureArray[0].X, FigureArray[0].Y);
 
-        painter->drawLine(figureArray[4].X, figureArray[4].Y, figureArray[5].X, figureArray[5].Y);
-        painter->drawLine(figureArray[5].X, figureArray[5].Y, figureArray[6].X, figureArray[6].Y);
+        painter->drawLine(FigureArray[4].X, FigureArray[4].Y, FigureArray[5].X, FigureArray[5].Y);
+        painter->drawLine(FigureArray[5].X, FigureArray[5].Y, FigureArray[6].X, FigureArray[6].Y);
 
-        painter->drawLine(figureArray[1].X, figureArray[1].Y, figureArray[4].X, figureArray[4].Y);
-        painter->drawLine(figureArray[2].X, figureArray[2].Y, figureArray[5].X, figureArray[5].Y);
-        painter->drawLine(figureArray[3].X, figureArray[3].Y, figureArray[6].X, figureArray[6].Y);
+        painter->drawLine(FigureArray[1].X, FigureArray[1].Y, FigureArray[4].X, FigureArray[4].Y);
+        painter->drawLine(FigureArray[2].X, FigureArray[2].Y, FigureArray[5].X, FigureArray[5].Y);
+        painter->drawLine(FigureArray[3].X, FigureArray[3].Y, FigureArray[6].X, FigureArray[6].Y);
 
         painter->setPen(QPen(Qt::red));
 
-        painter->setBrush(Qt::white);
+        painter->setBrush(Qt::blue);
         painter->drawPolygon(polygon, Qt::WindingFill);
 
-        painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap));
+        /*painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap));
         painter->drawLine(-580,0,580,0);
         painter->drawLine(580,0, 570, 10);
         painter->drawLine(580,0, 570, -10);
@@ -62,8 +62,36 @@ void Figure::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
                 continue;
             painter->drawLine(5, i, -5, i);
             painter->drawText(5, i - 10, "(0;" + QString::number(-i) + ")");
-        }
+        }*/
 
         Q_UNUSED(option);
         Q_UNUSED(widget);
+}
+
+void Detail::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    /* Устанавливаем позицию графического элемента
+     * в графической сцене, транслировав координаты
+     * курсора внутри графического элемента
+     * в координатную систему графической сцены
+     * */
+    this->setPos(mapToScene(event->pos()));
+}
+
+void Detail::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    /* При нажатии мышью на графический элемент
+     * заменяем курсор на руку, которая держит этот элемента
+     * */
+    this->setCursor(QCursor(Qt::ClosedHandCursor));
+    Q_UNUSED(event);
+}
+
+void Detail::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    /* При отпускании мышью элемента
+     * заменяем на обычный курсор стрелку
+     * */
+    this->setCursor(QCursor(Qt::ArrowCursor));
+    Q_UNUSED(event);
 }

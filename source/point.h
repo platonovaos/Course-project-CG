@@ -8,10 +8,4 @@ public:
     int Y;
 };
 
-class Triangle
-{
-    const int numPoints = 3;
-    Point *PointsArray;
-};
-
 #endif // POINT_H

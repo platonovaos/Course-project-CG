@@ -9,23 +9,14 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    scene = new QGraphicsScene();       // Инициализируем графическую сцену
+
+    scene = new QGraphicsScene(this);   // Инициализируем графическую сцену
+    scene->setItemIndexMethod(QGraphicsScene::NoIndex); // настраиваем индексацию элементов
 
     ui->graphicsView->setScene(scene);  // Устанавливаем графическую сцену в graphicsView
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);    // Устанавливаем сглаживание
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по вертикали
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по горизонтали
-
-    figureArray[0].X = -100; figureArray[0].Y = 100;
-    figureArray[1].X = -100; figureArray[1].Y = -100;
-    figureArray[2].X = 100; figureArray[2].Y = -100;
-    figureArray[3].X = 100; figureArray[3].Y = 100;
-    figureArray[4].X = -50; figureArray[4].Y = -150;
-    figureArray[5].X = 150; figureArray[5].Y = -150;
-    figureArray[6].X = 150; figureArray[6].Y = 50;
-
-    figure = new Figure(figureArray);
-    scene->addItem(figure);
 }
 
 Widget::~Widget()
@@ -48,8 +39,8 @@ void Widget::on_Carryover_clicked()
         return;
     }
 
-    figure = new Figure(figureArray);
-    scene->addItem(figure);
+    detail = new Detail(figureArray);
+    scene->addItem(detail);
 }
 
 void Widget::on_Scaling_clicked()
@@ -68,8 +59,8 @@ void Widget::on_Scaling_clicked()
         return;
     }
 
-    figure = new Figure(figureArray);
-    scene->addItem(figure);
+    detail = new Detail(figureArray);
+    scene->addItem(detail);
 }
 
 void Widget::on_Rotation_clicked()
@@ -88,6 +79,23 @@ void Widget::on_Rotation_clicked()
         return;
     }
 
-    figure = new Figure(figureArray);
-    scene->addItem(figure);
+    detail = new Detail(figureArray);
+    scene->addItem(detail);
+}
+
+void Widget::on_addDetail_clicked()
+{
+    figureArray[0].X = -100; figureArray[0].Y = 100;
+    figureArray[1].X = -100; figureArray[1].Y = -100;
+    figureArray[2].X = 100; figureArray[2].Y = -100;
+    figureArray[3].X = 100; figureArray[3].Y = 100;
+    figureArray[4].X = -50; figureArray[4].Y = -150;
+    figureArray[5].X = 150; figureArray[5].Y = -150;
+    figureArray[6].X = 150; figureArray[6].Y = 50;
+
+    detail = new Detail(figureArray);
+
+    detail->setPos(0, 0);
+
+    scene->addItem(detail);
 }

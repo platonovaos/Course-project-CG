@@ -29,20 +29,16 @@ SOURCES += \
         widget.cpp \
     figure.cpp \
     correctInput.cpp \
-    carryover.cpp \
-    rotation.cpp \
-    scaling.cpp \
-    point.cpp
+    point.cpp \
+    transformDetail.cpp
 
 HEADERS += \
         widget.h \
     figure.h \
     correctInput.h \
     exitCodes.h \
-    carryover.h \
-    rotation.h \
-    scaling.h \
-    point.h
+    point.h \
+    transformDetail.h
 
 FORMS += \
         widget.ui

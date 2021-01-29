@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1566</width>
+    <width>1502</width>
     <height>891</height>
    </rect>
   </property>
@@ -32,19 +32,6 @@
      <width>1159</width>
      <height>849</height>
     </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>1180</x>
-     <y>350</y>
-     <width>301</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Добавить деталь</string>
    </property>
   </widget>
   <widget class="QTabWidget" name="tabWidget">
@@ -262,6 +249,28 @@
      </property>
     </widget>
    </widget>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>1180</x>
+     <y>350</y>
+     <width>301</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QComboBox" name="comboBox"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="addDetail">
+      <property name="text">
+       <string>Добавить деталь</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

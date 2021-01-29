@@ -3,11 +3,8 @@
 
 #include <QWidget>
 #include <QMessageBox>
-
 #include "figure.h"
-#include "carryover.h"
-#include "scaling.h"
-#include "rotation.h"
+#include "transformDetail.h"
 
 namespace Ui {
 class Widget;
@@ -26,10 +23,13 @@ private slots:
     void on_Scaling_clicked();
     void on_Rotation_clicked();
 
+    void on_addDetail_clicked();
+
 private:
     Ui::Widget *ui;
     QGraphicsScene *scene;
-    Figure *figure;
+
+    Detail *detail;
     Point figureArray[7];
 };
 
