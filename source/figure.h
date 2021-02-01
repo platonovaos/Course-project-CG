@@ -12,7 +12,12 @@
 class Detail : public QObject, public QGraphicsItem
 {
 public:
-    Detail(Point _figureArray[7]);
+    Detail(int _numPoints, Point _figureArray[4]);
+
+    int getNumPoints();
+    Point getPoint(int idx);
+    void setPoint(int idx, Point point);
+
     ~Detail();
 
 protected:
@@ -24,7 +29,8 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
-    Point FigureArray[7];
+    Point FigureArray[4];
+    int NumPoints;
     QPointF MouseCoords;
 };
 

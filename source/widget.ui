@@ -34,110 +34,6 @@
     </rect>
    </property>
   </widget>
-  <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>1180</x>
-     <y>10</y>
-     <width>301</width>
-     <height>181</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
-    <number>1</number>
-   </property>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Масштабирование</string>
-    </attribute>
-    <widget class="QPushButton" name="Scaling">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>90</y>
-       <width>271</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Масштабирование</string>
-     </property>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>271</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>Введите коэффициенты kx, ky</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QLineEdit" name="kx_scale_line"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="ky_scale_line"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_3">
-    <attribute name="title">
-     <string>Поворот</string>
-    </attribute>
-    <widget class="QWidget" name="layoutWidget_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>271</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_5">
-      <item>
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Введите угол поворота(в градусах)</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLineEdit" name="tr_rotate_line"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QPushButton" name="Rotation">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>90</y>
-       <width>271</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Поворот</string>
-     </property>
-    </widget>
-   </widget>
-  </widget>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
@@ -155,10 +51,49 @@
       </property>
      </widget>
     </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_4">
+   <property name="geometry">
+    <rect>
+     <x>1190</x>
+     <y>10</y>
+     <width>271</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_5">
     <item>
-     <widget class="QComboBox" name="comboBox"/>
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>Введите угол поворота(в градусах)</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="rotationAxis"/>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QLineEdit" name="tr_rotate_line"/>
+      </item>
+     </layout>
     </item>
    </layout>
+  </widget>
+  <widget class="QPushButton" name="Rotation">
+   <property name="geometry">
+    <rect>
+     <x>1190</x>
+     <y>160</y>
+     <width>271</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Поворот</string>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

@@ -3,9 +3,13 @@
 
 #include <cmath>
 #include "point.h"
-#include "correctInput.h"
+#include "input.h"
+#include "figure.h"
 
-int scale(Point (&figureArray)[7], QString kxStr, QString kyStr);
-int rotate(Point (&figureArray)[7], QString trStr);
+TError rotate(Detail &detail, const QString axisStr, const QString trStr);
+
+void rotateOX(Detail &detail, const double tr);
+void rotateOY(Detail &detail, const double tr);
+void rotateOZ(Detail &detail, const double tr);
 
 #endif // TRANSFORMDETAIL_H

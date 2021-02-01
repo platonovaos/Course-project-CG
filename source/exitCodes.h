@@ -1,7 +1,7 @@
 #ifndef EXITCODES_H
 #define EXITCODES_H
 
-enum exitCodes
+enum TError
 {
     SUCCESS,
     EMPTY_POINT,

@@ -13,21 +13,26 @@ Widget::Widget(QWidget *parent) :
     this->resize(1500, 800);
     this->setFixedSize(1500, 800);
 
-    scene = new QGraphicsScene(this);   // Инициализируем графическую сцену
+    scene = new QGraphicsScene(this);   // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РіСЂР°С„РёС‡РµСЃРєСѓСЋ СЃС†РµРЅСѓ
 
     initializeUi();
-    scene->setSceneRect(0,0,500,500); // Устанавливаем размер сцены
+    scene->setSceneRect(0,0,500,500); // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЂР°Р·РјРµСЂ СЃС†РµРЅС‹
 }
 
 void Widget::initializeUi()
 {
     ui->graphicsView->resize(1150, 780);
-    ui->graphicsView->setScene(scene);  // Устанавливаем графическую сцену в graphicsView
-    ui->graphicsView->setRenderHint(QPainter::Antialiasing);    // Устанавливаем сглаживание
-    ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground); // Кэш фона
+    ui->graphicsView->setScene(scene);  // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РіСЂР°С„РёС‡РµСЃРєСѓСЋ СЃС†РµРЅСѓ РІ graphicsView
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);    // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃРіР»Р°Р¶РёРІР°РЅРёРµ
+    ui->graphicsView->setCacheMode(QGraphicsView::CacheBackground); // РљСЌС€ С„РѕРЅР°
     ui->graphicsView->setViewportUpdateMode(QGraphicsView::BoundingRectViewportUpdate);
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по вертикали
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по горизонтали
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // РћС‚РєР»СЋС‡Р°РµРј СЃРєСЂРѕР»Р»Р±Р°СЂ РїРѕ РІРµСЂС‚РёРєР°Р»Рё
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // РћС‚РєР»СЋС‡Р°РµРј СЃРєСЂРѕР»Р»Р±Р°СЂ РїРѕ РіРѕСЂРёР·РѕРЅС‚Р°Р»Рё
+
+    ui->rotationAxis->addItem("");
+    ui->rotationAxis->addItem("РћСЃСЊ OX");
+    ui->rotationAxis->addItem("РћСЃСЊ OY");
+    ui->rotationAxis->addItem("РћСЃСЊ OZ");
 }
 
 Widget::~Widget()
@@ -35,54 +40,37 @@ Widget::~Widget()
     delete ui;
 }
 
-void Widget::on_Scaling_clicked()
-{
-    scene->clear();
-
-    int exitCode = scale(figureArray, ui->kx_scale_line->text(), ui->ky_scale_line->text());
-
-    if (exitCode == EMPTY_POINT) {
-        QMessageBox::warning(this, "Ошибка", "Параметры масштабирования не могут быть пустыми!");
-        return;
-    }
-    if (exitCode == INCORRECT_POINT) {
-        QMessageBox::warning(this, "Ошибка", "Параметры масштабирования могут содержать только числа, '-' и '.'!");
-        return;
-    }
-
-    detail = new Detail(figureArray);
-    scene->addItem(detail);
-}
-
 void Widget::on_Rotation_clicked()
 {
     scene->clear();
 
-    int exitCode = rotate(figureArray, ui->tr_rotate_line->text());
+    int exitCode = rotate(*detail, ui->rotationAxis->currentText(), ui->tr_rotate_line->text());
 
     if (exitCode == EMPTY_POINT) {
-        QMessageBox::warning(this, "Ошибка", "Параметры поворота не могут быть пустыми!");
+        QMessageBox::warning(this, "РћС€РёР±РєР°", "РџР°СЂР°РјРµС‚СЂС‹ РїРѕРІРѕСЂРѕС‚Р° РЅРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹РјРё!");
         return;
     }
     if (exitCode == INCORRECT_POINT) {
-        QMessageBox::warning(this, "Ошибка", "Параметры поворота могут содержать только числа, '-' и '.'!");
+        QMessageBox::warning(this, "РћС€РёР±РєР°", "РџР°СЂР°РјРµС‚СЂС‹ РїРѕРІРѕСЂРѕС‚Р° РјРѕРіСѓС‚ СЃРѕРґРµСЂР¶Р°С‚СЊ С‚РѕР»СЊРєРѕ С‡РёСЃР»Р°, '-' Рё '.'!");
         return;
     }
 
-    detail = new Detail(figureArray);
+    Point figureArray[4];
+    for (int i = 0; i < detail->getNumPoints(); i++) {
+        figureArray[i] = detail->getPoint(i);
+    }
+    detail = new Detail(4, figureArray);
     scene->addItem(detail);
 }
 
 void Widget::on_addDetail_clicked()
 {
-    figureArray[0].X = -30; figureArray[0].Y = -30;
-    figureArray[1].X = -30; figureArray[1].Y = 30;
-    figureArray[2].X = 30; figureArray[2].Y = 30;
-    figureArray[3].X = 30; figureArray[3].Y = -30;
+    Point figureArray[4];
+    initializeCube(figureArray);
 
-    detail = new Detail(figureArray);
+    detail = new Detail(4, figureArray);
 
-    detail->setPos(0, 0);
+    detail->setPos(290, 220);
     detail->setFlag(QGraphicsItem::ItemIsSelectable);
     scene->addItem(detail);
 }

@@ -2,34 +2,76 @@
 
 const double trToRadian = 3.14 / 180;
 
-int scale(Point (&figureArray)[7], QString kxStr, QString kyStr)
+TError rotate(Detail &detail, const QString axisStr, const QString trStr)
 {
-    int exitCode = correctInputPoint(kxStr, kyStr);
-    if (exitCode == SUCCESS) {
-        double kx = kxStr.toDouble();
-        double ky = kyStr.toDouble();
+    TError exitCode = SUCCESS;
 
-        for (int i = 0; i < 7; i++) {
-            figureArray[i].X *= kx;
-            figureArray[i].Y *= ky;
+    if (axisStr == "") {
+        exitCode = EMPTY_POINT;
+    } else {
+        exitCode = correctInput(trStr);
+        if (exitCode == SUCCESS) {
+
+            Axis axis = defineAxis(axisStr);
+            double tr = trStr.toDouble() * trToRadian;
+
+            if (axis == OX) {
+                rotateOX(detail, tr);
+            }
+
+            if (axis == OY) {
+                rotateOY(detail, tr);
+            }
+
+            if (axis == OZ) {
+                rotateOZ(detail, tr);
+            }
         }
     }
     return exitCode;
 }
 
-int rotate(Point (&figureArray)[7], QString trStr)
+void rotateOX(Detail &detail, const double tr)
 {
-    int exitCode = correctInput(trStr);
-    if (exitCode == SUCCESS) {
-        double tr = trStr.toDouble() * trToRadian;
+    for (int i = 0; i < detail.getNumPoints(); i++) {
+        Point getPoint = detail.getPoint(i);
 
-        for (int i = 0; i < 7; i++) {
-            double x = figureArray[i].X;
-            double y = figureArray[i].Y;
+        int y = getPoint.Y;
+        int z = getPoint.Z;
 
-            figureArray[i].X = x * cos(tr) - y * sin(tr);
-            figureArray[i].Y = x * sin(tr) + y * cos(tr);
-        }
+        Point setPoint;
+        setPoint.Y = y * cos(tr) + z * sin(tr);
+        setPoint.Y = -y * sin(tr) + z * cos(tr);
+        detail.setPoint(i, setPoint);
     }
-    return exitCode;
+}
+
+void rotateOY(Detail &detail, const double tr)
+{
+    for (int i = 0; i < detail.getNumPoints(); i++) {
+        Point getPoint = detail.getPoint(i);
+
+        int x = getPoint.X;
+        int z = getPoint.Z;
+
+        Point setPoint;
+        setPoint.X = x * cos(tr) + z * sin(tr);
+        setPoint.Z = -x * sin(tr) + z * cos(tr);
+        detail.setPoint(i, setPoint);
+    }
+}
+
+void rotateOZ(Detail &detail, const double tr)
+{
+    for (int i = 0; i < detail.getNumPoints(); i++) {
+        Point getPoint = detail.getPoint(i);
+
+        int x = getPoint.X;
+        int y = getPoint.Y;
+
+        Point setPoint;
+        setPoint.X = x * cos(tr) - y * sin(tr);
+        setPoint.Y = x * sin(tr) + y * cos(tr);
+        detail.setPoint(i, setPoint);
+    }
 }

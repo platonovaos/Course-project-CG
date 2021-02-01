@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QMessageBox>
-#include "figure.h"
 #include "transformDetail.h"
 
 namespace Ui {
@@ -20,9 +19,7 @@ public:
     ~Widget();
 
 private slots:
-    void on_Scaling_clicked();
     void on_Rotation_clicked();
-
     void on_addDetail_clicked();
 
 private:
@@ -30,7 +27,7 @@ private:
     QGraphicsScene *scene;
 
     Detail *detail;
-    Point figureArray[7];
+    QVector<Detail> activeDetails;
 };
 
 #endif // WIDGET_H

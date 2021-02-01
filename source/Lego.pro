@@ -28,17 +28,17 @@ SOURCES += \
         main.cpp \
         widget.cpp \
     figure.cpp \
-    correctInput.cpp \
     point.cpp \
-    transformDetail.cpp
+    transformDetail.cpp \
+    input.cpp
 
 HEADERS += \
         widget.h \
     figure.h \
-    correctInput.h \
     exitCodes.h \
     point.h \
-    transformDetail.h
+    transformDetail.h \
+    input.h
 
 FORMS += \
         widget.ui

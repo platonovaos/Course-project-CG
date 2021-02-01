@@ -1,12 +1,30 @@
 #include "figure.h"
-#include <cmath>
-#include <iostream>
 
-Detail::Detail(Point _figureArray[7]) :
-    QGraphicsItem()
+Detail::Detail(int _numPoints, Point _figureArray[4]) :
+    QGraphicsItem(),
+    NumPoints(_numPoints)
 {
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < NumPoints; i++) {
         FigureArray[i] = _figureArray[i];
+    }
+}
+
+int Detail::getNumPoints()
+{
+    return NumPoints;
+}
+
+Point Detail::getPoint(int idx)
+{
+    if (idx < NumPoints) {
+        return FigureArray[idx];
+    }
+}
+
+void Detail::setPoint(int idx, Point point)
+{
+    if (idx < NumPoints) {
+        FigureArray[idx] = point;
     }
 }
 
@@ -17,7 +35,7 @@ Detail::~Detail()
 
 QRectF Detail::boundingRect() const
 {
-    return QRectF (-30,-30,60,60);   // Ограничиваем область, в которой лежит треугольник
+    return QRectF (-40, -40, 80, 80);   // Ограничиваем область, в которой лежит треугольник
 }
 
 void Detail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -52,3 +70,4 @@ void Detail::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     this->setCursor(QCursor(Qt::ArrowCursor));
     Q_UNUSED(event);
 }
+
