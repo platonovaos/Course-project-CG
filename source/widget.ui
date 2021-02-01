@@ -40,104 +40,21 @@
      <x>1180</x>
      <y>10</y>
      <width>301</width>
-     <height>301</height>
+     <height>181</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Перенос</string>
-    </attribute>
-    <widget class="QPushButton" name="Carryover">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>200</y>
-       <width>271</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Перенос</string>
-     </property>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>271</width>
-       <height>71</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Введите смещение dx, dy</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLineEdit" name="x_carry_line"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="y_carry_line"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
      <string>Масштабирование</string>
     </attribute>
-    <widget class="QWidget" name="layoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>80</y>
-       <width>271</width>
-       <height>81</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_4">
-      <item>
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Введите точку </string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>центра масштабирования x, y</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_4">
-        <item>
-         <widget class="QLineEdit" name="x_scale_line"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="y_scale_line"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
     <widget class="QPushButton" name="Scaling">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>200</y>
+       <y>90</y>
        <width>271</width>
        <height>51</height>
       </rect>
@@ -180,35 +97,6 @@
     <attribute name="title">
      <string>Поворот</string>
     </attribute>
-    <widget class="QWidget" name="layoutWidget_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>90</y>
-       <width>271</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_6">
-      <item>
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>Введите центр поворота x, y</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QLineEdit" name="x_rotate_line"/>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="y_rotate_line"/>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
     <widget class="QWidget" name="layoutWidget_4">
      <property name="geometry">
       <rect>
@@ -239,7 +127,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>200</y>
+       <y>90</y>
        <width>271</width>
        <height>51</height>
       </rect>
@@ -261,14 +149,14 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QComboBox" name="comboBox"/>
-    </item>
-    <item>
      <widget class="QPushButton" name="addDetail">
       <property name="text">
        <string>Добавить деталь</string>
       </property>
      </widget>
+    </item>
+    <item>
+     <widget class="QComboBox" name="comboBox"/>
     </item>
    </layout>
   </widget>

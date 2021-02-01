@@ -16,10 +16,10 @@ class Widget : public QWidget
 
 public:
     explicit Widget(QWidget *parent = nullptr);
+    void initializeUi();
     ~Widget();
 
 private slots:
-    void on_Carryover_clicked();
     void on_Scaling_clicked();
     void on_Rotation_clicked();
 

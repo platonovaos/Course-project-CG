@@ -25,6 +25,7 @@ protected:
 
 private:
     Point FigureArray[7];
+    QPointF MouseCoords;
 };
 
 #endif // FIGURE_H
