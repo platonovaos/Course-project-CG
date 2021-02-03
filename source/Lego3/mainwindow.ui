@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1016</width>
-    <height>558</height>
+    <width>1141</width>
+    <height>680</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,11 +34,31 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QSpinBox" name="radius">
-        <property name="value">
-         <number>1</number>
+       <widget class="QLabel" name="rotateLabel">
+        <property name="text">
+         <string>Введите угол поворота (в градусах)</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="rotateAxisBox"/>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Выберите деталь</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="typeDetailBox"/>
       </item>
       <item>
        <widget class="QPushButton" name="addDetail">
@@ -46,6 +66,16 @@
          <string>Добавить деталь</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="removeDetail">
+        <property name="text">
+         <string>Удалить деталь</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_5"/>
       </item>
       <item>
        <spacer name="verticalSpacer">

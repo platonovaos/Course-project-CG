@@ -10,11 +10,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    viewportwidget.cpp
+    viewportwidget.cpp \
+    point.cpp
 
 HEADERS += \
     mainwindow.h \
-    viewportwidget.h
+    viewportwidget.h \
+    point.h
 
 FORMS += \
     mainwindow.ui
