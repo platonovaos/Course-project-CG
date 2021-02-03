@@ -1,33 +1,33 @@
 #include "point.h"
 
-Detail defineType(QString typeStr)
+TypeDetail defineType(QString typeStr)
 {
-    Detail det;
+    TypeDetail type;
 
     if (typeStr == "") {
-        det = empty;
+        type = emptyD;
     }
 
     if (typeStr == "Куб") {
-        det = cube;
+        type = cube;
     }
 
     if (typeStr == "Сфера") {
-        det = sphere;
+        type = sphere;
     }
 
     if (typeStr == "Конус") {
-        det = cone;
+        type = cone;
     }
 
     if (typeStr == "Тор") {
-        det = torus;
+        type = torus;
     }
 
-    return det;
+    return type;
 }
 
-int removeDetail (int numDetails, Detail details[], Detail detailToRemove)
+int removeDetail (int numDetails, TypeDetail details[], TypeDetail detailToRemove)
 {
     int idx = -1;
     for (int i = numDetails - 1; i <= 0; i--) {
@@ -45,4 +45,42 @@ Point initEmptyPoint()
     p.X = 0; p.Y = 0; p.Z = 0;
 
     return p;
+}
+
+Axis defineAxis(QString axisStr)
+{
+    Axis axis;
+
+    if (axisStr == "") {
+        axis = emptyA;
+    }
+
+    if (axisStr == "Ось OX") {
+        axis = OX;
+    }
+
+    if (axisStr == "Ось OY") {
+        axis = OY;
+    }
+
+    if (axisStr == "Ось OZ") {
+        axis = OZ;
+    }
+
+    return axis;
+}
+
+void addOffset(Point &move, float offset, Axis axis)
+{
+    if (axis == OX) {
+        move.X += offset;
+    }
+
+    if (axis == OY) {
+        move.Y += offset;
+    }
+
+    if (axis == OZ) {
+        move.Z += offset;
+    }
 }

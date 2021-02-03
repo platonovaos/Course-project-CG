@@ -18,7 +18,9 @@ public:
     ~ViewportWidget() override;
 
     int numDetails;
-    Detail details[10];
+    TypeDetail details[10];
+
+    Point move;
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
@@ -29,13 +31,10 @@ protected:
     void mouseMoveEvent(QMouseEvent *pe) Q_DECL_OVERRIDE;
     void mouseReleaseEvent(QMouseEvent *pe) Q_DECL_OVERRIDE;
 
-    void keyPressEvent(QKeyEvent *pe) Q_DECL_OVERRIDE;
-
 private:
     QTimer timer;
     QPoint mousePos;
 
-    Point move;
     Point rotate;
 };
 

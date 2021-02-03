@@ -26,10 +26,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeRotateAxisBox()
 {
-    ui->rotateAxisBox->addItem("");
-    ui->rotateAxisBox->addItem("Ось OX");
-    ui->rotateAxisBox->addItem("Ось OY");
-    ui->rotateAxisBox->addItem("Ось OZ");
+    ui->moveAxisBox->addItem("");
+    ui->moveAxisBox->addItem("Ось OX");
+    ui->moveAxisBox->addItem("Ось OY");
+    ui->moveAxisBox->addItem("Ось OZ");
 }
 
 void MainWindow::initializeAddDetailBox()
@@ -41,31 +41,49 @@ void MainWindow::initializeAddDetailBox()
     ui->typeDetailBox->addItem("Тор");
 }
 
+//Взаимодействие с пользователем
+void MainWindow::keyPressEvent(QKeyEvent *pe)
+{
+    float offset = 0;
+
+    if (pe->key() == Qt::Key_Left) {
+        offset = -0.5;
+    }
+
+    if (pe->key() == Qt::Key_Right) {
+        offset = 0.5;
+    }
+
+    Axis axis = defineAxis(ui->moveAxisBox->currentText());
+    addOffset(ui->mOpenGLViewport->move, offset, axis);
+}
+
 void MainWindow::on_addDetail_clicked()
 {
     int numDetails = ui->mOpenGLViewport->numDetails;
-    Detail typeDetail = defineType(ui->typeDetailBox->currentText());
+    TypeDetail type = defineType(ui->typeDetailBox->currentText());
 
     ui->mOpenGLViewport->numDetails += 1;
-    ui->mOpenGLViewport->details[numDetails] = typeDetail;
+    ui->mOpenGLViewport->details[numDetails] = type;
 
     update();
 }
 
-void MainWindow::on_removeDetail_clicked()
+/*void MainWindow::on_removeDetail_clicked()
 {
     int numDetails = ui->mOpenGLViewport->numDetails;
-    Detail *details = ui->mOpenGLViewport->details;
-    Detail typeDetail = defineType(ui->typeDetailBox->currentText());
+    TypeDetail *details = ui->mOpenGLViewport->details;
+    TypeDetail type = defineType(ui->typeDetailBox->currentText());
 
-    int removeIdx = removeDetail(numDetails, details, typeDetail);
+    int removeIdx = removeDetail(numDetails, details, type);
 
     if (removeIdx > 0 && removeIdx < numDetails) {
         ui->mOpenGLViewport->numDetails = numDetails - 1;
-        ui->mOpenGLViewport->details[removeIdx] = empty;
+        ui->mOpenGLViewport->details[removeIdx] = emptyD;
     }
 
     qDebug() << removeIdx;
 
     update();
 }
+*/

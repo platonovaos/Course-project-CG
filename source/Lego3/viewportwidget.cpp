@@ -103,28 +103,6 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *pe)
 
 void ViewportWidget::mouseReleaseEvent(QMouseEvent *pe)
 {
-}
 
-void ViewportWidget::keyPressEvent(QKeyEvent *pe)
-{
-    qDebug() << "key";
-
-    if (pe->key() == Qt::Key_Left) {
-        move.X -= 1;
-    }
-
-    if (pe->key() == Qt::Key_Right) {
-        move.X += 1;
-    }
-
-    if (pe->key() == Qt::Key_Down) {
-        move.Y -= 1;
-    }
-
-    if (pe->key() == Qt::Key_Up) {
-        move.Y += 1;
-    }
-
-    update();
 }
 

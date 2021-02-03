@@ -34,23 +34,6 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="rotateLabel">
-        <property name="text">
-         <string>Введите угол поворота (в градусах)</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="rotateAxisBox"/>
-      </item>
-      <item>
-       <widget class="Line" name="line">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Выберите деталь</string>
@@ -73,6 +56,23 @@
          <string>Удалить деталь</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="rotateLabel">
+        <property name="text">
+         <string>Выберите ось перемещения</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="moveAxisBox"/>
       </item>
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_5"/>
