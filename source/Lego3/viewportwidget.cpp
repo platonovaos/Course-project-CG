@@ -93,8 +93,8 @@ void ViewportWidget::mousePressEvent(QMouseEvent *pe)
 
 void ViewportWidget::mouseMoveEvent(QMouseEvent *pe)
 {
-    rotate.X += 180 * (GLfloat)(pe->y() - mousePos.y()) / height();
-    rotate.Z += 180 * (GLfloat)(pe->x() - mousePos.x()) / width();
+    rotate.X += 180 * (pe->y() - mousePos.y()) / height();
+    rotate.Z += 180 * (pe->x() - mousePos.x()) / width();
 
     mousePos = pe->pos();
 

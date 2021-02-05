@@ -41,7 +41,7 @@ void MainWindow::initializeAddDetailBox()
     ui->typeDetailBox->addItem("Тор");
 }
 
-//Взаимодействие с пользователем
+
 void MainWindow::keyPressEvent(QKeyEvent *pe)
 {
     float offset = 0;
