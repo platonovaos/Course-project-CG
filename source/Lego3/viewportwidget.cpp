@@ -4,10 +4,9 @@
 ViewportWidget::ViewportWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-    numDetails = 0;
-
-    move = initEmptyPoint();
-    rotate = initEmptyPoint();
+    NumDetails = 0;
+    SceneRt = false;
+    sceneRotate = initEmptyPoint();
 
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
     timer.start(16);
@@ -39,41 +38,67 @@ void ViewportWidget::paintGL()
 {
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
-    for (int i = 0; i < numDetails; i++) {
+    for (int i = 0; i < NumDetails; i++) {
+        Detail curDetail = Details[i];
+
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
         gluLookAt( 0,0,5,  0,0,0,  0,1,0 );
 
         glColor3f(1.0, 0.0, 0.0);
 
-        glTranslatef(move.X, move.Y, move.Z);
-
-        glRotatef(rotate.X, 1, 0, 0);
-        glRotatef(rotate.Y, 0, 1, 0);
-        glRotatef(rotate.Z, 0, 0, 1);
-
-        switch (details[i]) {
-            case cube:
-                glutSolidCube(0.5);
-            break;
-
-            case sphere:
-                glutWireSphere(0.5, 20, 20);
-            break;
-
-            case cone:
-                glutWireCone(0.2, 0.75, 16, 8);
-            break;
-
-            case torus:
-                glutWireTorus(0.15, 0.65, 16, 16);
-            break;
-
-            default:
-                break;
-        }
+        rotateScene();
+        moveDetail(curDetail);
+        rotateDetail(curDetail);
+        paintDetail(curDetail);
     }
+}
 
+void ViewportWidget::rotateScene()
+{
+    glRotated(sceneRotate.X, 1, 0, 0);
+    glRotated(sceneRotate.Y, 0, 1, 0);
+    glRotated(sceneRotate.Z, 0, 0, 1);
+}
+
+void ViewportWidget::moveDetail(Detail detail)
+{
+    Point move = detail.getMove();
+
+    glTranslatef(move.X, move.Y, move.Z);
+}
+
+void ViewportWidget::rotateDetail(Detail detail)
+{
+    Point rotate = detail.getRotate();
+
+    glRotatef(rotate.X, 1, 0, 0);
+    glRotatef(rotate.Y, 0, 1, 0);
+    glRotatef(rotate.Z, 0, 0, 1);
+}
+
+void ViewportWidget::paintDetail(Detail detail)
+{
+    switch (detail.getType()) {
+    case cube:
+        glutSolidCube(0.5);
+        break;
+
+    case sphere:
+        glutSolidSphere(0.25, 20, 20);
+        break;
+
+    case cone:
+        glutSolidCone(0.25, 0.25, 16, 8);
+        break;
+
+    case torus:
+        glutSolidTorus(0.05, 0.20, 16, 16);
+        break;
+
+    default:
+        break;
+    }
 }
 
 void ViewportWidget::resizeGL(int w, int h)
@@ -81,7 +106,7 @@ void ViewportWidget::resizeGL(int w, int h)
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluPerspective( 45.0, (GLdouble)w/h, 0.01, 100.0 );
+    gluPerspective(45.0, (GLdouble)w/h, 0.01, 100.0);
 
     update();
 }
@@ -93,16 +118,36 @@ void ViewportWidget::mousePressEvent(QMouseEvent *pe)
 
 void ViewportWidget::mouseMoveEvent(QMouseEvent *pe)
 {
-    rotate.X += 180 * (pe->y() - mousePos.y()) / height();
-    rotate.Z += 180 * (pe->x() - mousePos.x()) / width();
+    Point rt = initEmptyPoint();
+    rt.X += 180 * (pe->y() - mousePos.y()) / height();
+    rt.Z += 180 * (pe->x() - mousePos.x()) / width();
+
+    if (SceneRt) {
+        sceneRotate.X += rt.X;
+        sceneRotate.Y += rt.Y;
+        sceneRotate.Z += rt.Z;
+    }
+    else {
+        Details[NumDetails - 1].setRotate(rt);
+    }
 
     mousePos = pe->pos();
 
     update();
 }
 
-void ViewportWidget::mouseReleaseEvent(QMouseEvent *pe)
+void ViewportWidget::addDetail(DetailType type)
 {
+    Details[NumDetails].setType(type);
+    NumDetails += 1;
+}
 
+void ViewportWidget::removeDetail()
+{
+    if (NumDetails > 0) {
+        NumDetails--;
+    }
+
+    Details[NumDetails].setType(emptyD);
 }
 

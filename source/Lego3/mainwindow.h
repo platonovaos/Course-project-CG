@@ -25,7 +25,10 @@ protected:
 
 private slots:
     void on_addDetail_clicked();
-    //void on_removeDetail_clicked();
+    void on_removeDetail_clicked();
+
+    void on_rotateDetail_clicked();
+    void on_rotateScene_clicked();
 
 private:
     Ui::MainWindow *ui;

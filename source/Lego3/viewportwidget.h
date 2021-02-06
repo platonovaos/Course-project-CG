@@ -7,7 +7,7 @@
 #include <QTimer>
 #include <QDebug>
 
-#include "point.h"
+#include "detail.h"
 
 class ViewportWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -17,25 +17,30 @@ public:
     explicit ViewportWidget(QWidget *parent = nullptr);
     ~ViewportWidget() override;
 
-    int numDetails;
-    TypeDetail details[10];
+    void addDetail(DetailType type);
+    void removeDetail();
 
-    Point move;
+    int NumDetails;
+    Detail Details[10];
+    bool SceneRt;
 
 protected:
     void initializeGL() Q_DECL_OVERRIDE;
     void paintGL() Q_DECL_OVERRIDE;
+        void rotateScene();
+        void moveDetail(Detail detail);
+        void rotateDetail(Detail detail);
+        void paintDetail(Detail detail);
+
     void resizeGL(int w, int h) Q_DECL_OVERRIDE;
 
     void mousePressEvent(QMouseEvent *pe) Q_DECL_OVERRIDE;
     void mouseMoveEvent(QMouseEvent *pe) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent *pe) Q_DECL_OVERRIDE;
 
 private:
     QTimer timer;
     QPoint mousePos;
-
-    Point rotate;
+    Point sceneRotate;
 };
 
 #endif // VIEWPORTWIDGET_H

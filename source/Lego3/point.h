@@ -3,19 +3,6 @@
 
 #include <QString>
 
-enum TypeDetail
-{
-    emptyD,
-    cube,
-    sphere,
-    cone,
-    torus
-};
-
-TypeDetail defineType(QString typeStr);
-int removeDetail (int numDetails, TypeDetail details[], TypeDetail detailToRemove);
-
-
 struct Point
 {
     float X;
@@ -34,6 +21,5 @@ enum Axis
 };
 
 Axis defineAxis(QString axisStr);
-void addOffset(Point &move, float offset, Axis axis);
 
 #endif // POINT_H

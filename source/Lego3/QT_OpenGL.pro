@@ -11,12 +11,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     viewportwidget.cpp \
-    point.cpp
+    point.cpp \
+    datail.cpp
 
 HEADERS += \
     mainwindow.h \
     viewportwidget.h \
-    point.h
+    point.h \
+    detail.h
 
 FORMS += \
     mainwindow.ui

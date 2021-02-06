@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initializeRotateAxisBox();
     initializeAddDetailBox();
+
+    ui->rotateDetail->setChecked(true);
 }
 
 MainWindow::~MainWindow()
@@ -55,35 +57,35 @@ void MainWindow::keyPressEvent(QKeyEvent *pe)
     }
 
     Axis axis = defineAxis(ui->moveAxisBox->currentText());
-    addOffset(ui->mOpenGLViewport->move, offset, axis);
+
+    int currentDetail = (ui->mOpenGLViewport->NumDetails) - 1;
+    (ui->mOpenGLViewport->Details[currentDetail]).setMove(offset, axis);
 }
 
 void MainWindow::on_addDetail_clicked()
 {
-    int numDetails = ui->mOpenGLViewport->numDetails;
-    TypeDetail type = defineType(ui->typeDetailBox->currentText());
-
-    ui->mOpenGLViewport->numDetails += 1;
-    ui->mOpenGLViewport->details[numDetails] = type;
+    DetailType type = defineType(ui->typeDetailBox->currentText());
+    ui->mOpenGLViewport->addDetail(type);
 
     update();
 }
 
-/*void MainWindow::on_removeDetail_clicked()
+void MainWindow::on_removeDetail_clicked()
 {
-    int numDetails = ui->mOpenGLViewport->numDetails;
-    TypeDetail *details = ui->mOpenGLViewport->details;
-    TypeDetail type = defineType(ui->typeDetailBox->currentText());
+    ui->mOpenGLViewport->removeDetail();
+    update();
+}
 
-    int removeIdx = removeDetail(numDetails, details, type);
+void MainWindow::on_rotateDetail_clicked()
+{
+    ui->rotateScene->setChecked(false);
+    ui->mOpenGLViewport->SceneRt = false;
+}
 
-    if (removeIdx > 0 && removeIdx < numDetails) {
-        ui->mOpenGLViewport->numDetails = numDetails - 1;
-        ui->mOpenGLViewport->details[removeIdx] = emptyD;
-    }
-
-    qDebug() << removeIdx;
+void MainWindow::on_rotateScene_clicked()
+{
+    ui->rotateDetail->setChecked(false);
+    ui->mOpenGLViewport->SceneRt = true;
 
     update();
 }
-*/
