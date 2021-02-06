@@ -16,6 +16,7 @@ class Detail
 {
 public:
     Detail();
+    Detail(const DetailType tp);
     ~Detail();
 
     void setType(const DetailType tp);

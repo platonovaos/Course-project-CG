@@ -21,7 +21,8 @@ public:
     void removeDetail();
 
     int NumDetails;
-    Detail Details[10];
+    QVector<Detail> Details;
+
     bool SceneRt;
 
 protected:

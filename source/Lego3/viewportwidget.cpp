@@ -138,7 +138,9 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *pe)
 
 void ViewportWidget::addDetail(DetailType type)
 {
-    Details[NumDetails].setType(type);
+    Detail newDetail(type);
+
+    Details.push_back(newDetail);
     NumDetails += 1;
 }
 
@@ -146,8 +148,7 @@ void ViewportWidget::removeDetail()
 {
     if (NumDetails > 0) {
         NumDetails--;
+        Details.pop_back();
     }
-
-    Details[NumDetails].setType(emptyD);
 }
 

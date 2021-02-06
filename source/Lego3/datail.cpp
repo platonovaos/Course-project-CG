@@ -7,6 +7,13 @@ Detail::Detail()
     rotate = initEmptyPoint();
 }
 
+Detail::Detail(const DetailType tp)
+{
+    type = tp;
+    move = initEmptyPoint();
+    rotate = initEmptyPoint();
+}
+
 Detail::~Detail()
 {
 
