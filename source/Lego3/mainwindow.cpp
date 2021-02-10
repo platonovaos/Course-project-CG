@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->resize(1500, 800);
     this->setFixedSize(1500, 800);
+    this->setWindowTitle("Lego3d");
 
     scene = new QGraphicsScene(this);
     scene->setSceneRect(0,0,500,500);
@@ -86,6 +87,4 @@ void MainWindow::on_rotateScene_clicked()
 {
     ui->rotateDetail->setChecked(false);
     ui->mOpenGLViewport->SceneRt = true;
-
-    update();
 }
