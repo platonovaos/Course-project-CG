@@ -34,11 +34,11 @@ HEADERS += \
     SceneObjects/model.h \
     SceneObjects/sprite.h \
     addlightwindow.h \
-    addmodelwindow.h \
     drawer.h \
     mainwindow.h \
     scene.h \
-    zbuffer.h
+    zbuffer.h \
+    addmodelwindow.h
 
 FORMS += \
     UiForms/addlightwindow.ui \

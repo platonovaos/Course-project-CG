@@ -35,9 +35,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    if (addModelWindow->isVisible())
-        addModelWindow->destroyed();
-
     if (addLightWindow->isVisible())
         addLightWindow->destroyed();
 
@@ -62,7 +59,6 @@ void MainWindow::initDrawer()
 
 void MainWindow::initButton()
 {
-    connect(ui->pushButton_addModel, SIGNAL(released()), this, SLOT(openAddModelWindow()));
     connect(ui->pushButton_addLight, SIGNAL(released()), this, SLOT(openAddLightWindow()));
 
     connect(ui->pushButton_mapply, SIGNAL(released()), this, SLOT(applyModelChange()));
@@ -440,16 +436,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     drawer->draw();
 }
 
-
-
-void MainWindow::openAddModelWindow()
+void MainWindow::on_pushButton_addModel_clicked()
 {
     addModelWindow = new AddModelWindow(modelCnt);
-
-    connect(addModelWindow, SIGNAL(saveModelParams(AddModelParameters&)),
-            this, SLOT(setAddModelParams(AddModelParameters&)));
-
-    addModelWindow->show();
+    AddModelParameters params = addModelWindow->getParameters();
+    setAddModelParams(params);
 }
 
 void MainWindow::setAddModelParams(AddModelParameters& newParams)
@@ -457,25 +448,12 @@ void MainWindow::setAddModelParams(AddModelParameters& newParams)
     Vector3f center(newParams.moveX, newParams.moveY, newParams.moveZ);
     Vector3f scaleK(newParams.scaleX, newParams.scaleY, newParams.scaleZ);
 
-    if (newParams.isSprite)
-    {
-        Vector3f end(newParams.enX, newParams.enY, newParams.enZ);
-        drawer->addSprite(center, scaleK, newParams.filename, newParams.color, end, newParams.speed);
+    drawer->addModel(center, scaleK, newParams.filename, newParams.color);
 
-        centersS.push_back(center);
-        ui->comboBox_sprite->addItem(newParams.modelName);
+    centersM.push_back(center);
+    ui->comboBox_model->addItem(newParams.modelName);
 
-        spriteCnt++;
-    }
-    else
-    {
-        drawer->addModel(center, scaleK, newParams.filename, newParams.color);
-
-        centersM.push_back(center);
-        ui->comboBox_model->addItem(newParams.modelName);
-
-        modelCnt++;
-    }
+    modelCnt++;
 
     frames = 0;
     frameTime = 0;

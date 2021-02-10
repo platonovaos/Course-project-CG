@@ -17,8 +17,6 @@ struct AddModelParameters
 
     QColor color;
 
-    bool isSprite;
-
     float enX, enY, enZ;
     float speed;
 };
@@ -33,28 +31,17 @@ class AddModelWindow : public QDialog
 
 public:
     explicit AddModelWindow(int, QDialog *parent = nullptr);
+    AddModelParameters getParameters();
     ~AddModelWindow();
 
 private:
     Ui::AddModelWindow *ui;
     AddModelParameters params;
 
-    // For auto name
     int modelCnt;
-    std::string name;
-
-    void initLabels();
-    void initLineEdits();
-    void initParams();
 
 private slots:
-    void isSpriteToggledCheckButton(bool);
-
-    void openFileDialog();
-    void chooseColor();
-
     void okButton();
-    void cancelButton();
 
 signals:
     void saveModelParams(AddModelParameters&);

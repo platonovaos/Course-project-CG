@@ -68,10 +68,10 @@ private slots:
     void cancelLineEditsLight();
 
     // Window
-    void openAddModelWindow();
     void setAddModelParams(AddModelParameters&);
 
     void openAddLightWindow();
     void setLightParams(AddLightParameters&);
+    void on_pushButton_addModel_clicked();
 };
 #endif // MAINWINDOW_H
