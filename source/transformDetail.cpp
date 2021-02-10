@@ -42,8 +42,8 @@ void rotateOX(Detail &detail, const double tr)
 
         Point setPoint = initEmptyPoint();
         setPoint.X = x;
-        setPoint.Y = y * cos(tr) - z * sin(tr);
-        setPoint.Z = y * sin(tr) + z * cos(tr);
+        setPoint.Y = static_cast<int>(y * cos(tr) - z * sin(tr) + 0.5);
+        setPoint.Z = static_cast<int>(y * sin(tr) + z * cos(tr) + 0.5);
 
         detail.setPoint(setPoint, i);
     }
@@ -59,9 +59,9 @@ void rotateOY(Detail &detail, const double tr)
         int z = getPoint.Z;
 
         Point setPoint = initEmptyPoint();
-        setPoint.X = x * cos(tr) + z * sin(tr);
+        setPoint.X = static_cast<int>(x * cos(tr) + z * sin(tr) + 0.5);
         setPoint.Y = y;
-        setPoint.Z = -x * sin(tr) + z * cos(tr);
+        setPoint.Z = static_cast<int>(-x * sin(tr) + z * cos(tr) + 0.5);
 
         detail.setPoint(setPoint, i);
     }
@@ -77,8 +77,8 @@ void rotateOZ(Detail &detail, const double tr)
         int z = getPoint.Z;
 
         Point setPoint = initEmptyPoint();
-        setPoint.X = x * cos(tr) - y * sin(tr);
-        setPoint.Y = x * sin(tr) + y * cos(tr);
+        setPoint.X = static_cast<int>(x * cos(tr) - y * sin(tr) + 0.5);
+        setPoint.Y = static_cast<int>(x * sin(tr) + y * cos(tr) + 0.5);
         setPoint.Z = z;
 
         detail.setPoint(setPoint, i);

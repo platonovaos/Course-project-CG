@@ -4,28 +4,24 @@
 #include <QGraphicsScene>
 #include "detail.h"
 
-const int maxYLines = 200;
-const double maxDist = 1000;
-const int clBk = 3;
-
-struct Cell
-{
-    double Z;
-    int Color;
-};
-
 class ZBuffer
 {
+private:
+    int w, h;
+    std::vector<std::vector<int>> data;
+    int background = std::numeric_limits<int>::min();
+
 public:
-    ZBuffer(int ax, int ay);
-    ~ZBuffer();
+    ZBuffer();
+    ZBuffer(const int&, const int&);
 
-    void addDetail(Detail &detail);
-    void Clear();
+    int width();
+    int height();
 
-    int sX, sY;
+    void clearZBuffer();
+
+    void setDepth(const int, const int, const int);
+    int  getDepth(const int&, const int&);
 };
-
-void zbuffer(QGraphicsScene *scene, QVector<Detail*> details, const int numDetails);
 
 #endif // ZBUFFER_H
