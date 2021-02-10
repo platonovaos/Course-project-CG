@@ -11,7 +11,6 @@
 
 #include "../MathObjects/vector3.h"
 #include "../MathObjects/vector3.hpp"
-
 #include "../MathObjects/transformmatrix.h"
 
 class Model
@@ -20,7 +19,6 @@ protected:
     Vector3f center;
     std::vector<Vector3f> verts;
 
-    // attention, this Vector3i means vertex/uv/normal
     std::vector<std::vector<Vector3i>> faces;
     std::vector<Vector3f> norms;
 

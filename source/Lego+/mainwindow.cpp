@@ -14,12 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setWindowTitle("Lego");
     this->resize(990, 800);
 
-    ui->centralwidget->setStyleSheet("QWidget {background: rgba(0, 0, 0, 255);}");
+    ui->centralwidget->setStyleSheet("QWidget {background: rgba(250, 250, 250, 255);}");
 
     initDrawer();
     initLables();
     initButton();
 
+    // Combobox
     connect(ui->comboBox_model, SIGNAL(currentIndexChanged(QString)), SLOT(changeModel()));
     connect(ui->comboBox_sprite, SIGNAL(currentIndexChanged(QString)), SLOT(changeSprite()));
     connect(ui->comboBox_light, SIGNAL(currentIndexChanged(QString)), SLOT(changeLight()));
@@ -35,12 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    if (addModelWindow->isVisible())
-        addModelWindow->destroyed();
-
-    if (addLightWindow->isVisible())
-        addLightWindow->destroyed();
-
     delete ui;
 }
 
@@ -62,9 +57,6 @@ void MainWindow::initDrawer()
 
 void MainWindow::initButton()
 {
-    connect(ui->pushButton_addModel, SIGNAL(released()), this, SLOT(openAddModelWindow()));
-    connect(ui->pushButton_addLight, SIGNAL(released()), this, SLOT(openAddLightWindow()));
-
     connect(ui->pushButton_mapply, SIGNAL(released()), this, SLOT(applyModelChange()));
     connect(ui->pushButton_mcancel, SIGNAL(released()), this, SLOT(cancelLineEditsModel()));
 
@@ -83,51 +75,55 @@ void MainWindow::initLables()
     ui->lbl_mmove_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
     ui->lbl_mmove_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
 
-    ui->lbl_model_scale->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mscale_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mscale_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mscale_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    ui->lbl_model_scale->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_mscale_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_mscale_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_mscale_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 
-    ui->lbl_mrotate->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mrotate_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mrotate_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mrotate_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    ui->lbl_mrotate->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_mrotate_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_mrotate_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_mrotate_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 
 
-    ui->lbl_sprites->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_smove->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_smove_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_smove_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_smove_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    //Sprites
+    ui->lbl_sprites->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_smove->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_smove_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_smove_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_smove_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 
-    ui->lbl_sscale->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_sscale_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_sscale_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_sscale_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    ui->lbl_sscale->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_sscale_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_sscale_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_sscale_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 
-    ui->lbl_srotate->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_srotate_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_srotate_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_srotate_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    ui->lbl_srotate->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_srotate_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_srotate_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_srotate_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 
-    ui->lbl_smovement->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_smovement_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_smovement_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_smovement_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    ui->lbl_smovement->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_smovement_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_smovement_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_smovement_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 
-    ui->lbl_speed->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    ui->lbl_speed->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 
-    ui->lbl_lights->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_lmove->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_lmove_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_lmove_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_lmove_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
 
-    ui->lbl_power->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
+    // Lights
+    ui->lbl_lights->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_lmove->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_lmove_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_lmove_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+    ui->lbl_lmove_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
+
+    ui->lbl_power->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
 }
 
 
 
+// Model
 void MainWindow::changeModel()
 {
     int idx = ui->comboBox_model->currentIndex();
@@ -221,6 +217,7 @@ void MainWindow::cancelLineEditsModel()
 
 
 
+// Sprite
 void MainWindow::changeSprite()
 {
     int idx = ui->comboBox_sprite->currentIndex();
@@ -442,40 +439,25 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 
 
-void MainWindow::openAddModelWindow()
+// Add new model
+void MainWindow::on_addDetail_clicked()
 {
-    addModelWindow = new AddModelWindow(modelCnt);
-
-    connect(addModelWindow, SIGNAL(saveModelParams(AddModelParameters&)),
-            this, SLOT(setAddModelParams(AddModelParameters&)));
-
-    addModelWindow->show();
+    addModelWindow = new Detail(modelCnt);
+    DetailParams params = addModelWindow->getParameters();
+    setAddModelParams(params);
 }
 
-void MainWindow::setAddModelParams(AddModelParameters& newParams)
+void MainWindow::setAddModelParams(DetailParams& newParams)
 {
-    Vector3f center(newParams.moveX, newParams.moveY, newParams.moveZ);
-    Vector3f scaleK(newParams.scaleX, newParams.scaleY, newParams.scaleZ);
+    Vector3f center(newParams.move.X, newParams.move.Y, newParams.move.Z);
+    Vector3f scaleK(newParams.scale.X, newParams.scale.Y, newParams.scale.Z);
 
-    if (newParams.isSprite)
-    {
-        Vector3f end(newParams.enX, newParams.enY, newParams.enZ);
-        drawer->addSprite(center, scaleK, newParams.filename, newParams.color, end, newParams.speed);
+    drawer->addModel(center, scaleK, newParams.filename, newParams.color);
 
-        centersS.push_back(center);
-        ui->comboBox_sprite->addItem(newParams.modelName);
+    centersM.push_back(center);
+    ui->comboBox_model->addItem(newParams.modelName);
 
-        spriteCnt++;
-    }
-    else
-    {
-        drawer->addModel(center, scaleK, newParams.filename, newParams.color);
-
-        centersM.push_back(center);
-        ui->comboBox_model->addItem(newParams.modelName);
-
-        modelCnt++;
-    }
+    modelCnt++;
 
     frames = 0;
     frameTime = 0;
@@ -484,19 +466,16 @@ void MainWindow::setAddModelParams(AddModelParameters& newParams)
 
 
 // Add new light
-void MainWindow::openAddLightWindow()
+void MainWindow::on_pushButton_addLight_clicked()
 {
-    addLightWindow = new AddLightWindow(lightCnt);
-
-    connect(addLightWindow, SIGNAL(saveLightParams(AddLightParameters&)),
-            this, SLOT(setLightParams(AddLightParameters&)));
-
-    addLightWindow->show();
+    addLightWindow = new Light(lightCnt);
+    LightParams params = addLightWindow->getParameters();
+    setLightParams(params);
 }
 
-void MainWindow::setLightParams(AddLightParameters& newParams)
+void MainWindow::setLightParams(LightParams& newParams)
 {
-    Vector3f pos(newParams.x, newParams.y, newParams.z);
+    Vector3f pos(newParams.set.X, newParams.set.Y, newParams.set.Z);
     drawer->addLight(pos, newParams.power);
 
     lightPos.push_back(pos);

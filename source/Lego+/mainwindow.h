@@ -9,11 +9,11 @@
 #include <string>
 #include <chrono>
 
-#include "drawer.h"
-#include "addmodelwindow.h"
-#include "addlightwindow.h"
+#include "detail.h"
+#include "light.h"
 
 #include "MathObjects/vector3.h"
+#include "drawer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -43,15 +43,13 @@ private:
 
     void keyPressEvent(QKeyEvent *event);
 
-    AddModelWindow *addModelWindow;
-    AddModelParameters addModelparams;
+    Detail *addModelWindow;
+    DetailParams addModelparams;
 
-    AddLightWindow *addLightWindow;
-    AddLightParameters addLightParams;
+    Light *addLightWindow;
+    LightParams addLightParams;
 
 private slots:
-
-
     // Model
     void changeModel();
     void applyModelChange();
@@ -68,10 +66,10 @@ private slots:
     void cancelLineEditsLight();
 
     // Window
-    void openAddModelWindow();
-    void setAddModelParams(AddModelParameters&);
+    void on_addDetail_clicked();
+    void setAddModelParams(DetailParams&);
 
-    void openAddLightWindow();
-    void setLightParams(AddLightParameters&);
+    void on_pushButton_addLight_clicked();
+    void setLightParams(LightParams&);
 };
 #endif // MAINWINDOW_H

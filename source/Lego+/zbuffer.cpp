@@ -17,7 +17,6 @@ ZBuffer::ZBuffer(const int& w, const int& h) :
 }
 
 
-
 int ZBuffer::width()
 {
     return w;

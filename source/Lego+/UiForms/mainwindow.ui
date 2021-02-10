@@ -29,7 +29,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_addModel">
+   <widget class="QPushButton" name="addDetail">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -55,7 +55,7 @@ QPushButton:pressed {
     }</string>
     </property>
     <property name="text">
-     <string>Load</string>
+     <string>Добавить</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_addLight">

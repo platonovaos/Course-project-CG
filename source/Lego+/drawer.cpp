@@ -2,7 +2,7 @@
 
 #include <QDebug>
 
-// Very smart function, meh...
+
 inline QRgb iColor(const QRgb& a, const float& i)
 {
     QColor c(a);
