@@ -16,7 +16,13 @@ Widget::Widget(QWidget *parent) :
     scene = new QGraphicsScene(this);   // Инициализируем графическую сцену
 
     initializeUi();
+    initializeRotationAxisBox();
+    initializeTypeDetailBox();
+
     scene->setSceneRect(0,0,500,500); // Устанавливаем размер сцены
+    scene->setBackgroundBrush(Qt::black);
+
+    NumDetails = 0;
 }
 
 void Widget::initializeUi()
@@ -29,10 +35,23 @@ void Widget::initializeUi()
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по вертикали
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по горизонтали
 
+
+}
+
+void Widget::initializeRotationAxisBox()
+{
     ui->rotationAxis->addItem("");
     ui->rotationAxis->addItem("Ось OX");
     ui->rotationAxis->addItem("Ось OY");
     ui->rotationAxis->addItem("Ось OZ");
+}
+
+void Widget::initializeTypeDetailBox()
+{
+    ui->typeDetailBox->addItem("");
+    ui->typeDetailBox->addItem("Куб");
+    ui->typeDetailBox->addItem("Сфера");
+    ui->typeDetailBox->addItem("Пирамида");
 }
 
 Widget::~Widget()
@@ -40,11 +59,34 @@ Widget::~Widget()
     delete ui;
 }
 
+void Widget::on_addDetail_clicked()
+{
+    TypeDetail type = defineType(ui->typeDetailBox->currentText());
+
+    Detail *curDetail = new Detail(type);
+    curDetail->setPos(290, 220);
+    curDetail->setFlag(QGraphicsItem::ItemIsSelectable);
+    scene->addItem(curDetail);
+
+    Details.push_back(curDetail);
+    NumDetails++;
+}
+
+void Widget::on_removeDetail_clicked()
+{
+    if (NumDetails > 0) {
+        Detail *curDetail = Details[NumDetails - 1];
+        scene->removeItem(curDetail);
+
+        Details.pop_back();
+        NumDetails--;
+    }
+}
+
 void Widget::on_Rotation_clicked()
 {
-    scene->clear();
-
-    int exitCode = rotate(*detail, ui->rotationAxis->currentText(), ui->tr_rotate_line->text());
+    Detail *curDetail = Details[NumDetails - 1];
+    int exitCode = rotate(*curDetail, ui->rotationAxis->currentText(), ui->tr_rotate_line->text());
 
     if (exitCode == EMPTY_POINT) {
         QMessageBox::warning(this, "Ошибка", "Параметры поворота не могут быть пустыми!");
@@ -55,22 +97,10 @@ void Widget::on_Rotation_clicked()
         return;
     }
 
-    Point figureArray[4];
-    for (int i = 0; i < detail->getNumPoints(); i++) {
-        figureArray[i] = detail->getPoint(i);
-    }
-    detail = new Detail(4, figureArray);
-    scene->addItem(detail);
+    scene->update();
 }
 
-void Widget::on_addDetail_clicked()
+void Widget::on_zBuffer_clicked()
 {
-    Point figureArray[4];
-    initializeCube(figureArray);
 
-    detail = new Detail(4, figureArray);
-
-    detail->setPos(290, 220);
-    detail->setFlag(QGraphicsItem::ItemIsSelectable);
-    scene->addItem(detail);
 }

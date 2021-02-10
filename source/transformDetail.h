@@ -4,7 +4,7 @@
 #include <cmath>
 #include "point.h"
 #include "input.h"
-#include "figure.h"
+#include "detail.h"
 
 TError rotate(Detail &detail, const QString axisStr, const QString trStr);
 

@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT	 += opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,18 +28,20 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         widget.cpp \
-    figure.cpp \
     point.cpp \
     transformDetail.cpp \
-    input.cpp
+    input.cpp \
+    zbuffer.cpp \
+    detail.cpp
 
 HEADERS += \
         widget.h \
-    figure.h \
     exitCodes.h \
     point.h \
     transformDetail.h \
-    input.h
+    input.h \
+    zbuffer.h \
+    detail.h
 
 FORMS += \
         widget.ui
@@ -47,3 +50,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    ../../../../../../Загрузки/pictures/z_buffer/main.py

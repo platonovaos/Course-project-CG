@@ -2,11 +2,14 @@
 <ui version="4.0">
  <class>Widget</class>
  <widget class="QWidget" name="Widget">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1502</width>
+    <width>1476</width>
     <height>891</height>
    </rect>
   </property>
@@ -37,17 +40,27 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>1180</x>
-     <y>350</y>
-     <width>301</width>
+     <x>1190</x>
+     <y>10</y>
+     <width>261</width>
      <height>101</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
+     <widget class="QComboBox" name="typeDetailBox"/>
+    </item>
+    <item>
      <widget class="QPushButton" name="addDetail">
       <property name="text">
        <string>Добавить деталь</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="removeDetail">
+      <property name="text">
+       <string>Удалить деталь</string>
       </property>
      </widget>
     </item>
@@ -57,9 +70,9 @@
    <property name="geometry">
     <rect>
      <x>1190</x>
-     <y>10</y>
-     <width>271</width>
-     <height>131</height>
+     <y>140</y>
+     <width>261</width>
+     <height>141</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -74,25 +87,32 @@
      <widget class="QComboBox" name="rotationAxis"/>
     </item>
     <item>
+     <widget class="QLineEdit" name="tr_rotate_line"/>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QLineEdit" name="tr_rotate_line"/>
+       <widget class="QPushButton" name="Rotation">
+        <property name="text">
+         <string>Поворот</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="Rotation">
+  <widget class="QPushButton" name="zBuffer">
    <property name="geometry">
     <rect>
      <x>1190</x>
-     <y>160</y>
-     <width>271</width>
-     <height>51</height>
+     <y>320</y>
+     <width>261</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>Поворот</string>
+    <string>Буффер</string>
    </property>
   </widget>
  </widget>
