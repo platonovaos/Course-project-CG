@@ -12,17 +12,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Lego");
-    this->resize(990, 800);
+    this->resize(1025, 829);
 
     ui->centralwidget->setStyleSheet("QWidget {background: rgba(250, 250, 250, 255);}");
 
     initDrawer();
-    initLables();
     initButton();
 
     // Combobox
     connect(ui->comboBox_model, SIGNAL(currentIndexChanged(QString)), SLOT(changeModel()));
-    connect(ui->comboBox_sprite, SIGNAL(currentIndexChanged(QString)), SLOT(changeSprite()));
     connect(ui->comboBox_light, SIGNAL(currentIndexChanged(QString)), SLOT(changeLight()));
 
     modelCnt  = 0;
@@ -60,67 +58,9 @@ void MainWindow::initButton()
     connect(ui->pushButton_mapply, SIGNAL(released()), this, SLOT(applyModelChange()));
     connect(ui->pushButton_mcancel, SIGNAL(released()), this, SLOT(cancelLineEditsModel()));
 
-    connect(ui->pushButton_sapply, SIGNAL(released()), this, SLOT(applySpriteChange()));
-    connect(ui->pushButton_scancel, SIGNAL(released()), this, SLOT(cancelLineEditsSprite()));
-
     connect(ui->pushButton_lapply, SIGNAL(released()), this, SLOT(applyLightChange()));
     connect(ui->pushButton_lcancel, SIGNAL(released()), this, SLOT(cancelLineEditsLight()));
 }
-
-void MainWindow::initLables()
-{
-    ui->lbl_models->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_model_move->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mmove_x->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mmove_y->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-    ui->lbl_mmove_z->setStyleSheet("QLabel {color: rgba(255, 255, 255, 255);}");
-
-    ui->lbl_model_scale->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_mscale_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_mscale_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_mscale_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-    ui->lbl_mrotate->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_mrotate_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_mrotate_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_mrotate_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-
-    //Sprites
-    ui->lbl_sprites->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_smove->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_smove_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_smove_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_smove_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-    ui->lbl_sscale->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_sscale_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_sscale_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_sscale_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-    ui->lbl_srotate->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_srotate_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_srotate_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_srotate_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-    ui->lbl_smovement->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_smovement_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_smovement_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_smovement_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-    ui->lbl_speed->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-
-    // Lights
-    ui->lbl_lights->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_lmove->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_lmove_x->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_lmove_y->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-    ui->lbl_lmove_z->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-
-    ui->lbl_power->setStyleSheet("QLabel {color: rgba(200, 200, 200, 255);}");
-}
-
 
 
 // Model
@@ -193,7 +133,7 @@ void MainWindow::applyModelChange()
                           ui->le_mrotate_z->text().toFloat());
     }
 
-    drawer->editModel(idx, center, scale, rotate);
+    drawer->editDetail(idx, center, scale, rotate);
     drawer->draw();
 }
 
@@ -214,138 +154,6 @@ void MainWindow::cancelLineEditsModel()
     ui->le_mrotate_y->setText("0");
     ui->le_mrotate_z->setText("0");
 }
-
-
-
-// Sprite
-void MainWindow::changeSprite()
-{
-    int idx = ui->comboBox_sprite->currentIndex();
-    Vector3f currentCenter = centersS[idx];
-
-    ui->le_smove_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_smove_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_smove_z->setText(std::to_string(currentCenter.z).c_str());
-
-    ui->le_sscale_x->setText("1");
-    ui->le_sscale_y->setText("1");
-    ui->le_sscale_z->setText("1");
-
-    ui->le_srotate_x->setText("0");
-    ui->le_srotate_y->setText("0");
-    ui->le_srotate_z->setText("0");
-
-    ui->le_smovement_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_smovement_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_smovement_z->setText(std::to_string(currentCenter.z).c_str());
-}
-
-void MainWindow::applySpriteChange()
-{
-    if (centersS.size() == 0)
-        return;
-
-    int idx = ui->comboBox_sprite->currentIndex();
-
-    Vector3f center, scale, rotate;
-
-    Vector3f endmovement;
-    float speed;
-
-    // For move
-    if (ui->le_smove_x->text().isEmpty() ||
-        ui->le_smove_y->text().isEmpty() ||
-        ui->le_smove_z->text().isEmpty())
-    {
-        center = Vector3f(centersS[idx]);
-    }
-    else
-    {
-        center = Vector3f(ui->le_smove_x->text().toFloat(),
-                          ui->le_smove_y->text().toFloat(),
-                          ui->le_smove_z->text().toFloat());
-    }
-
-    // For scale
-    if (ui->le_sscale_x->text().isEmpty() ||
-        ui->le_sscale_y->text().isEmpty() ||
-        ui->le_sscale_z->text().isEmpty())
-    {
-        scale = Vector3f(1, 1, 1);
-    }
-    else
-    {
-        scale = Vector3f(ui->le_sscale_x->text().toFloat(),
-                         ui->le_sscale_y->text().toFloat(),
-                         ui->le_sscale_z->text().toFloat());
-    }
-
-    // For rotate
-    if (ui->le_srotate_x->text().isEmpty() ||
-        ui->le_srotate_y->text().isEmpty() ||
-        ui->le_srotate_z->text().isEmpty())
-    {
-        rotate = Vector3f(0, 0, 0);
-    }
-    else
-    {
-        rotate = Vector3f(ui->le_srotate_x->text().toFloat(),
-                          ui->le_srotate_y->text().toFloat(),
-                          ui->le_srotate_z->text().toFloat());
-    }
-
-    // For speed
-    if (ui->le_speed->text().isEmpty())
-        speed = 0.1;
-    else
-        speed = ui->le_speed->text().toFloat();
-
-    // For end point of movement
-    if (ui->le_smovement_x->text().isEmpty() ||
-        ui->le_smovement_y->text().isEmpty() ||
-        ui->le_smovement_z->text().isEmpty())
-    {
-        drawer->editSprite(idx, center, scale, rotate);
-    }
-    else
-    {
-        endmovement = Vector3f(ui->le_smovement_x->text().toFloat(),
-                               ui->le_smovement_y->text().toFloat(),
-                               ui->le_smovement_z->text().toFloat());
-        if (ui->le_speed->text().isEmpty())
-            speed = 0.1;
-        else
-            speed = ui->le_speed->text().toFloat();
-
-        drawer->editSprite(idx, center, scale, rotate, endmovement, speed);
-    }
-
-    drawer->draw();
-}
-
-void MainWindow::cancelLineEditsSprite()
-{
-    int idx = ui->comboBox_sprite->currentIndex();
-    Vector3f currentCenter = centersS[idx];
-
-    ui->le_smove_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_smove_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_smove_z->setText(std::to_string(currentCenter.z).c_str());
-
-    ui->le_sscale_x->setText("1");
-    ui->le_sscale_y->setText("1");
-    ui->le_sscale_z->setText("1");
-
-    ui->le_srotate_x->setText("0");
-    ui->le_srotate_y->setText("0");
-    ui->le_srotate_z->setText("0");
-
-    ui->le_smovement_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_smovement_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_smovement_z->setText(std::to_string(currentCenter.z).c_str());
-}
-
-
 
 // Light
 void MainWindow::changeLight()
@@ -452,7 +260,7 @@ void MainWindow::setAddModelParams(DetailParams& newParams)
     Vector3f center(newParams.move.X, newParams.move.Y, newParams.move.Z);
     Vector3f scaleK(newParams.scale.X, newParams.scale.Y, newParams.scale.Z);
 
-    drawer->addModel(center, scaleK, newParams.filename, newParams.color);
+    drawer->addDetail(center, scaleK, newParams.filename, newParams.color);
 
     centersM.push_back(center);
     ui->comboBox_model->addItem(newParams.modelName);

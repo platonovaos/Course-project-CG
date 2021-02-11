@@ -48,7 +48,7 @@ private:
                             const QColor&, float&, float&, float&);
 
     int  wPerm, hPerm;
-    bool checkIsVisible(const Vector3i&);
+    bool isVisible(const Vector3i&);
 
 public:
     explicit Drawer(const int&, const int&, QObject *parent = nullptr);
@@ -56,18 +56,12 @@ public:
 
     void draw();
 
-    void addModel(Vector3f&, Vector3f&, QString&, QColor&);
-    void editModel(const int&, Vector3f&, Vector3f&, Vector3f&);
+    void addDetail(Vector3f&, Vector3f&, QString&, QColor&);
+    void editDetail(const int&, Vector3f&, Vector3f&, Vector3f&);
 
-    void addSprite(Vector3f&, Vector3f&, QString&, QColor&, Vector3f&, float&);
-    void editSprite(const int&, Vector3f&, Vector3f&, Vector3f&, Vector3f&, const float&);
-    void editSprite(const int&, Vector3f&, Vector3f&, Vector3f&);   // Without movement
-
-    // Light
     void addLight(const Vector3f&, const float&);
     void editLight(const int&, const Vector3f&, const float& power = 500);
 
-    // Camera
     void upDownCamera(const float&);
     void rotateCamera(const float&);
     void strafeCamera(const float&);

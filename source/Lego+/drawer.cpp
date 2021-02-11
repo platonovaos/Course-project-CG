@@ -33,9 +33,10 @@ inline QRgb iColor(const QRgb& a, const float& i)
 }
 
 
-// Public methods
-Drawer::Drawer(const int& w, const int& h, QObject *parent)
-    : QGraphicsScene(parent), w(w), h(h), wPerm(w + FAULT), hPerm(h + FAULT)
+Drawer::Drawer(const int& w, const int& h, QObject *parent) :
+    QGraphicsScene(parent),
+    w(w), h(h),
+    wPerm(w + FAULT), hPerm(h + FAULT)
 {
     initCanvas();
     initColorCache();
@@ -54,7 +55,6 @@ Drawer::~Drawer()
 }
 
 
-// Draw objects
 void Drawer::draw()
 {
     clearScreen();
@@ -63,19 +63,9 @@ void Drawer::draw()
     Vector3f camDir = scene.getCameraView();
     Vector3f camUp  = scene.getCameraUp();
 
-    size_t i;
-    size_t sprites = scene.countSprites();
+    int numDetails = scene.countDetails();
 
-    for (i = 0; i < sprites; i++)
-    {
-        scene.updateSpriteCenter(i);
-        objectProcessing(scene.getSprite(i), camPos, camDir, camUp);
-    }
-
-    size_t models = scene.countModels();
-
-    for (size_t i = 0; i < models; i++)
-    {
+    for (int i = 0; i < numDetails; i++) {
         objectProcessing(scene.getModel(i), camPos, camDir, camUp);
     }
 
@@ -84,34 +74,14 @@ void Drawer::draw()
 }
 
 
-// Model
-void Drawer::addModel(Vector3f& center, Vector3f& scale, QString& filename, QColor& color)
+void Drawer::addDetail(Vector3f& center, Vector3f& scale, QString& filename, QColor& color)
 {
     scene.addModel(Model(filename.toStdString().c_str(), color, center), scale);
 }
 
-void Drawer::editModel(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
+void Drawer::editDetail(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
 {
     scene.editModel(idx, center, scale, rotate);
-}
-
-
-
-// Sprite
-void Drawer::addSprite(Vector3f& center, Vector3f& scale, QString& filename,
-                       QColor& color, Vector3f& end, float& speed)
-{
-    scene.addSprite(Sprite(filename.toStdString().c_str(), color, center), scale, end ,speed);
-}
-
-void Drawer::editSprite(const int& idx, Vector3f& cntr, Vector3f& scl, Vector3f& rt, Vector3f& end, const float& sp)
-{
-    scene.editSprite(idx, cntr, scl, rt, end, sp);
-}
-
-void Drawer::editSprite(const int& idx, Vector3f& cntr, Vector3f& scl, Vector3f& rt)
-{
-    scene.editSprite(idx, cntr, scl, rt);
 }
 
 
@@ -196,9 +166,9 @@ void Drawer::objectProcessing(Model& model, Vector3f& camPos, Vector3f& camDir, 
             intensity[j] = lightProcessing(v, model.norm(i, j));
         }
 
-        if (skip || !checkIsVisible(screenCoords[0]) ||
-                    !checkIsVisible(screenCoords[1]) ||
-                    !checkIsVisible(screenCoords[2])) continue;
+        if (skip || !isVisible(screenCoords[0]) ||
+                    !isVisible(screenCoords[1]) ||
+                    !isVisible(screenCoords[2])) continue;
 
         triangleProcessing(screenCoords[0], screenCoords[1], screenCoords[2],
                 color, intensity[0], intensity[1], intensity[2]);
@@ -303,7 +273,7 @@ void Drawer::triangleProcessing(Vector3i& t0, Vector3i& t1, Vector3i& t2,
     }
 }
 
-bool Drawer::checkIsVisible(const Vector3i& v)
+bool Drawer::isVisible(const Vector3i& v)
 {
     if (v.x < -FAULT || v.x > wPerm || v.y < -FAULT || v.y > hPerm)
         return false;

@@ -11,7 +11,7 @@ Scene::Scene() :
 }
 
 
-int Scene::countModels()
+int Scene::countDetails()
 {
     return models.size();
 }

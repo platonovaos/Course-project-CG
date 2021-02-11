@@ -38,7 +38,6 @@ private:
     std::vector<Vector3f> lightPos;
 
     void initDrawer();
-    void initLables();
     void initButton();
 
     void keyPressEvent(QKeyEvent *event);
@@ -54,11 +53,6 @@ private slots:
     void changeModel();
     void applyModelChange();
     void cancelLineEditsModel();
-
-    // Sprite
-    void changeSprite();
-    void applySpriteChange();
-    void cancelLineEditsSprite();
 
     // Light
     void changeLight();
