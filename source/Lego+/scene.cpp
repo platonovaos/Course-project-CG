@@ -16,9 +16,15 @@ int Scene::countDetails()
     return details.size();
 }
 
-void Scene::addDetail(const Figure& newModel)
+void Scene::addDetail(const Figure& newModel, const Vector3f& scaleK)
 {
     details.push_back(newModel);
+    details.back().scale(scaleK);
+}
+
+void Scene::removeDetail()
+{
+    details.pop_back();
 }
 
 Figure& Scene::getModel(const int& idx)

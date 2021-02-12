@@ -10,9 +10,9 @@ Detail::Detail(const int idx)
     params.move.Y = 0;
     params.move.Z = 0;
 
-    params.scale.X = 1;
-    params.scale.Y = -1;
-    params.scale.Z = 1;
+    params.scale.X = 0.25;
+    params.scale.Y = 0.25;
+    params.scale.Z = 0.25;
 
     params.color = Qt::red;
 }

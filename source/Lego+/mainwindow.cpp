@@ -19,10 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
     initDrawer();
     initButton();
 
-    // Combobox
-    connect(ui->comboBox_model, SIGNAL(currentIndexChanged(QString)), SLOT(changeModel()));
-    connect(ui->comboBox_light, SIGNAL(currentIndexChanged(QString)), SLOT(changeLight()));
-
     numDetails = 0;
     numSprite = 0;
     numLight = 0;
@@ -41,8 +37,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::initDrawer()
 {
-    size_t w = ui->graphicsView->width();
-    size_t h = ui->graphicsView->height();
+    int w = ui->graphicsView->width();
+    int h = ui->graphicsView->height();
 
     drawer = new Drawer(w, h, this);
 
@@ -51,27 +47,10 @@ void MainWindow::initDrawer()
     ui->graphicsView->setAlignment(Qt::AlignCenter);
 
     ui->graphicsView->setScene(drawer);
-}
 
-void MainWindow::initButton()
-{
-    connect(ui->pushButton_mapply, SIGNAL(released()), this, SLOT(applyModelChange()));
-    connect(ui->pushButton_mcancel, SIGNAL(released()), this, SLOT(cancelLineEditsModel()));
-
-    connect(ui->pushButton_lapply, SIGNAL(released()), this, SLOT(applyLightChange()));
-    connect(ui->pushButton_lcancel, SIGNAL(released()), this, SLOT(cancelLineEditsLight()));
-}
-
-
-// Model
-void MainWindow::changeModel()
-{
-    int idx = ui->comboBox_model->currentIndex();
-    Vector3f currentCenter = centersM[idx];
-
-    ui->le_mmove_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_mmove_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_mmove_z->setText(std::to_string(currentCenter.z).c_str());
+    ui->le_mmove_x->setText("0");
+    ui->le_mmove_y->setText("0");
+    ui->le_mmove_z->setText("0");
 
     ui->le_mscale_x->setText("1");
     ui->le_mscale_y->setText("1");
@@ -82,52 +61,53 @@ void MainWindow::changeModel()
     ui->le_mrotate_z->setText("0");
 }
 
+void MainWindow::initButton()
+{
+    connect(ui->pushButton_mapply, SIGNAL(released()), this, SLOT(applyModelChange()));
+
+    connect(ui->pushButton_lapply, SIGNAL(released()), this, SLOT(applyLightChange()));
+    connect(ui->pushButton_lcancel, SIGNAL(released()), this, SLOT(cancelLineEditsLight()));
+}
+
+
 void MainWindow::applyModelChange()
 {
-    if (centersM.size() == 0)
+    if (centersD.size() == 0) {
         return;
+    }
 
-    int idx = ui->comboBox_model->currentIndex();
+    int idx = numDetails - 1;
 
     Vector3f center, scale, rotate;
 
-    // For move
     if (ui->le_mmove_x->text().isEmpty() ||
         ui->le_mmove_y->text().isEmpty() ||
-        ui->le_mmove_z->text().isEmpty())
-    {
-        center = Vector3f(centersM[idx]);
+        ui->le_mmove_z->text().isEmpty()) {
+        center = Vector3f(centersD[idx]);
     }
-    else
-    {
+    else {
         center = Vector3f(ui->le_mmove_x->text().toFloat(),
                           ui->le_mmove_y->text().toFloat(),
                           ui->le_mmove_z->text().toFloat());
     }
 
-    // For scale
     if (ui->le_mscale_x->text().isEmpty() ||
         ui->le_mscale_y->text().isEmpty() ||
-        ui->le_mscale_z->text().isEmpty())
-    {
+        ui->le_mscale_z->text().isEmpty()) {
         scale = Vector3f(1, 1, 1);
     }
-    else
-    {
+    else {
         scale = Vector3f(ui->le_mscale_x->text().toFloat(),
                          ui->le_mscale_y->text().toFloat(),
                          ui->le_mscale_z->text().toFloat());
     }
 
-    // For rotate
     if (ui->le_mrotate_x->text().isEmpty() ||
         ui->le_mrotate_y->text().isEmpty() ||
-        ui->le_mrotate_z->text().isEmpty())
-    {
+        ui->le_mrotate_z->text().isEmpty()) {
         rotate = Vector3f(0, 0, 0);
     }
-    else
-    {
+    else {
         rotate = Vector3f(ui->le_mrotate_x->text().toFloat(),
                           ui->le_mrotate_y->text().toFloat(),
                           ui->le_mrotate_z->text().toFloat());
@@ -137,14 +117,14 @@ void MainWindow::applyModelChange()
     drawer->draw();
 }
 
-void MainWindow::cancelLineEditsModel()
+void MainWindow::on_removeDetail_clicked()
 {
-    int idx = ui->comboBox_model->currentIndex();
-    Vector3f currentCenter = centersM[idx];
+    numDetails--;
+    drawer->removeDetail();
 
-    ui->le_lmove_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_lmove_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_lmove_z->setText(std::to_string(currentCenter.z).c_str());
+    ui->le_mmove_x->setText("0");
+    ui->le_mmove_y->setText("0");
+    ui->le_mmove_z->setText("0");
 
     ui->le_mscale_x->setText("1");
     ui->le_mscale_y->setText("1");
@@ -153,9 +133,10 @@ void MainWindow::cancelLineEditsModel()
     ui->le_mrotate_x->setText("0");
     ui->le_mrotate_y->setText("0");
     ui->le_mrotate_z->setText("0");
+
+    drawer->draw();
 }
 
-// Light
 void MainWindow::changeLight()
 {
     int idx = ui->comboBox_light->currentIndex();
@@ -247,7 +228,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 
 
-// Add new model
 void MainWindow::on_addDetail_clicked()
 {
     addModelWindow = new Detail(numDetails);
@@ -258,11 +238,11 @@ void MainWindow::on_addDetail_clicked()
 void MainWindow::setAddModelParams(DetailParams& newParams)
 {
     Vector3f center(newParams.move.X, newParams.move.Y, newParams.move.Z);
+    Vector3f scaleK(newParams.scale.X, newParams.scale.Y, newParams.scale.Z);
 
-    drawer->addDetail(center, newParams.filename, newParams.color);
+    drawer->addDetail(center, scaleK, newParams.filename, newParams.color);
 
-    centersM.push_back(center);
-    ui->comboBox_model->addItem(newParams.detailName);
+    centersD.push_back(center);
 
     numDetails++;
 

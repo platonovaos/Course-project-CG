@@ -33,7 +33,7 @@ private:
 
     int numDetails, numSprite, numLight;
 
-    std::vector<Vector3f> centersM;
+    std::vector<Vector3f> centersD;
     std::vector<Vector3f> centersS;
     std::vector<Vector3f> lightPos;
 
@@ -49,19 +49,15 @@ private:
     LightParams addLightParams;
 
 private slots:
-    // Model
-    void changeModel();
-    void applyModelChange();
-    void cancelLineEditsModel();
-
-    // Light
     void changeLight();
     void applyLightChange();
     void cancelLineEditsLight();
 
     // Window
     void on_addDetail_clicked();
+    void on_removeDetail_clicked();
     void setAddModelParams(DetailParams&);
+    void applyModelChange();
 
     void on_pushButton_addLight_clicked();
     void setLightParams(LightParams&);

@@ -18,7 +18,8 @@ public:
     Scene();
 
     int countDetails();
-    void addDetail(const Figure&);
+    void addDetail(const Figure&, const Vector3f& scale = Vector3f(1, 1, 1));
+    void removeDetail();
     Figure& getModel(const int&);
     void   editModel(const int&, Vector3f&, Vector3f&, Vector3f&);
 

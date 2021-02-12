@@ -56,8 +56,9 @@ public:
 
     void draw();
 
-    void addDetail(Vector3f&, QString&, QColor&);
+    void addDetail(Vector3f&, Vector3f&, QString&, QColor&);
     void editDetail(const int&, Vector3f&, Vector3f&, Vector3f&);
+    void removeDetail();
 
     void addLight(const Vector3f&, const float&);
     void editLight(const int&, const Vector3f&, const float& power = 500);

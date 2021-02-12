@@ -74,14 +74,19 @@ void Drawer::draw()
 }
 
 
-void Drawer::addDetail(Vector3f& center, QString& filename, QColor& color)
+void Drawer::addDetail(Vector3f& center, Vector3f& scaleK, QString& filename, QColor& color)
 {
-    scene.addDetail(Figure(filename.toStdString().c_str(), color, center));
+    scene.addDetail(Figure(filename.toStdString().c_str(), color, center), scaleK);
 }
 
 void Drawer::editDetail(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
 {
     scene.editModel(idx, center, scale, rotate);
+}
+
+void Drawer::removeDetail()
+{
+    scene.removeDetail();
 }
 
 
