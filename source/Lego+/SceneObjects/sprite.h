@@ -3,7 +3,7 @@
 
 #include "model.h"
 
-class Sprite : public Model
+class Sprite : public Figure
 {
 private:
     Vector3f start;

@@ -1,6 +1,6 @@
 #include "model.h"
 
-Model::Model(const char *filename, const QColor& color, const Vector3f& center)
+Figure::Figure(const char *filename, const QColor& color, const Vector3f& center)
     : center(center), color(color)
 {
     std::ifstream in;
@@ -65,12 +65,12 @@ Model::Model(const char *filename, const QColor& color, const Vector3f& center)
 
 
 // Center
-Vector3f& Model::getCenter()
+Vector3f& Figure::getCenter()
 {
     return center;
 }
 
-void Model::setCenter(const Vector3f& newCenter)
+void Figure::setCenter(const Vector3f& newCenter)
 {
     center = newCenter;
 }
@@ -78,12 +78,12 @@ void Model::setCenter(const Vector3f& newCenter)
 
 
 // Vertes
-int Model::getVertsCount()
+int Figure::getVertsCount()
 {
     return verts.size();
 }
 
-Vector3f& Model::vert(const int& idx)
+Vector3f& Figure::vert(const int& idx)
 {
     return verts[idx];
 }
@@ -91,12 +91,12 @@ Vector3f& Model::vert(const int& idx)
 
 
 // Faces
-int Model::getFacesCount()
+int Figure::getFacesCount()
 {
     return faces.size();
 }
 
-std::vector<int> Model::face(const int& idx)
+std::vector<int> Figure::face(const int& idx)
 {
     std::vector<int> face;
     size_t size = faces[idx].size();
@@ -110,30 +110,30 @@ std::vector<int> Model::face(const int& idx)
 
 
 // Normals
-int Model::getNormsCount()
+int Figure::getNormsCount()
 {
     return norms.size();
 }
 
-void Model::setNorm(const int& iface, const int& nvert, const Vector3f& n)
+void Figure::setNorm(const int& iface, const int& nvert, const Vector3f& n)
 {
     int idx = faces[iface][nvert][2];
     norms[idx] = n;
 }
 
-Vector3f& Model::norm(const int& iface, const int& nvert)
+Vector3f& Figure::norm(const int& iface, const int& nvert)
 {
     int idx = faces[iface][nvert][2];
     return norms[idx].normalize();
 }
 
-Vector3f Model::normalCalculate(const Vector3f& a, const Vector3f& b, const Vector3f& c)
+Vector3f Figure::normalCalculate(const Vector3f& a, const Vector3f& b, const Vector3f& c)
 {
     Vector3f n = (c - a) ^ (b - a);
     return n;
 }
 
-void Model::normalsProcessing()
+void Figure::normalsProcessing()
 {
     size_t nface = faces.size();
 
@@ -150,19 +150,19 @@ void Model::normalsProcessing()
 
 
 // Color
-QColor& Model::getColor()
+QColor& Figure::getColor()
 {
     return color;
 }
 
-void Model::setColor(const QColor& newColor)
+void Figure::setColor(const QColor& newColor)
 {
     color = newColor;
 }
 
 
 
-void Model::scale(const Vector3f& k)
+void Figure::scale(const Vector3f& k)
 {
     int nverts = verts.size();
 
@@ -177,7 +177,7 @@ void Model::scale(const Vector3f& k)
 }
 
 
-void Model::rotate(const Vector3f& angle)
+void Figure::rotate(const Vector3f& angle)
 {
     std::shared_ptr<Matrix> m1(new MoveMatrix(-center.x, -center.y, -center.z));
     std::shared_ptr<Matrix> m2(new MoveMatrix(center.x, center.y, center.z));

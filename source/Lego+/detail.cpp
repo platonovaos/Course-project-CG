@@ -4,7 +4,7 @@
 Detail::Detail(const int idx)
 {
     params.filename = "/home/main/Desktop/BMSTU/5sem/Курсач/код/Lego+/details/cube.h";
-    params.modelName = ("detail " + std::to_string(idx)).c_str();
+    params.detailName = ("detail " + std::to_string(idx)).c_str();
 
     params.move.X = 0;
     params.move.Y = 0;

@@ -23,9 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->comboBox_model, SIGNAL(currentIndexChanged(QString)), SLOT(changeModel()));
     connect(ui->comboBox_light, SIGNAL(currentIndexChanged(QString)), SLOT(changeLight()));
 
-    modelCnt  = 0;
-    spriteCnt = 0;
-    lightCnt  = 0;
+    numDetails = 0;
+    numSprite = 0;
+    numLight = 0;
 
     lightPos.push_back(Vector3f(100, 1000, 100));
     drawer->addLight(Vector3f(100, 1000, 100), 1300);
@@ -250,7 +250,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 // Add new model
 void MainWindow::on_addDetail_clicked()
 {
-    addModelWindow = new Detail(modelCnt);
+    addModelWindow = new Detail(numDetails);
     DetailParams params = addModelWindow->getParameters();
     setAddModelParams(params);
 }
@@ -258,14 +258,13 @@ void MainWindow::on_addDetail_clicked()
 void MainWindow::setAddModelParams(DetailParams& newParams)
 {
     Vector3f center(newParams.move.X, newParams.move.Y, newParams.move.Z);
-    Vector3f scaleK(newParams.scale.X, newParams.scale.Y, newParams.scale.Z);
 
-    drawer->addDetail(center, scaleK, newParams.filename, newParams.color);
+    drawer->addDetail(center, newParams.filename, newParams.color);
 
     centersM.push_back(center);
-    ui->comboBox_model->addItem(newParams.modelName);
+    ui->comboBox_model->addItem(newParams.detailName);
 
-    modelCnt++;
+    numDetails++;
 
     frames = 0;
     frameTime = 0;
@@ -276,7 +275,7 @@ void MainWindow::setAddModelParams(DetailParams& newParams)
 // Add new light
 void MainWindow::on_pushButton_addLight_clicked()
 {
-    addLightWindow = new Light(lightCnt);
+    addLightWindow = new Light(numLight);
     LightParams params = addLightWindow->getParameters();
     setLightParams(params);
 }

@@ -11,7 +11,7 @@ struct DetailParams
     Point scale;
 
     QString filename;
-    QString modelName;
+    QString detailName;
 
     QColor color;
 

@@ -3,7 +3,7 @@
 #include <QDebug>
 
 Sprite::Sprite(const char* file, const QColor& color, const Vector3f& center)
-    : Model(file, color, center)
+    : Figure(file, color, center)
 {
     this->isSprite = true;
 }

@@ -13,7 +13,7 @@
 #include "../MathObjects/vector3.hpp"
 #include "../MathObjects/transformmatrix.h"
 
-class Model
+class Figure
 {
 protected:
     Vector3f center;
@@ -30,7 +30,7 @@ protected:
     bool isSprite = false;
 
 public:
-    Model(const char*, const QColor&, const Vector3f& center = Vector3f(0, 0, 0));
+    Figure(const char*, const QColor&, const Vector3f& center = Vector3f(0, 0, 0));
 
     // Center
     Vector3f& getCenter();

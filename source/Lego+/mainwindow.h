@@ -31,7 +31,7 @@ private:
     Ui::MainWindow *ui;
     Drawer *drawer;
 
-    int modelCnt, spriteCnt, lightCnt;
+    int numDetails, numSprite, numLight;
 
     std::vector<Vector3f> centersM;
     std::vector<Vector3f> centersS;

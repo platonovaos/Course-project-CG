@@ -10,17 +10,16 @@ class Scene
 {
 private:
     Camera mainCamera;
-    std::vector<Model> models;
+    std::vector<Figure> details;
     std::vector<Sprite> sprites;
     std::vector<LightSourcePoint> lightSources;
 
 public:
     Scene();
 
-    // Models
-    int    countDetails();
-    void   addModel(const Model&, const Vector3f& scale = Vector3f(1, 1, 1));
-    Model& getModel(const int&);
+    int countDetails();
+    void addDetail(const Figure&);
+    Figure& getModel(const int&);
     void   editModel(const int&, Vector3f&, Vector3f&, Vector3f&);
 
 

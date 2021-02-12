@@ -42,12 +42,12 @@ private:
     void clearScreen();
 
 
-    void  objectProcessing(Model&, Vector3f&, Vector3f&, Vector3f&);
+    void objectProcessing(Figure&, Vector3f&, Vector3f&, Vector3f&);
     float lightProcessing(const Vector3f&, const Vector3f&);
-    void  triangleProcessing(Vector3i&, Vector3i&, Vector3i&,
+    void triangleProcessing(Vector3i&, Vector3i&, Vector3i&,
                             const QColor&, float&, float&, float&);
 
-    int  wPerm, hPerm;
+    int wPerm, hPerm;
     bool isVisible(const Vector3i&);
 
 public:
@@ -56,7 +56,7 @@ public:
 
     void draw();
 
-    void addDetail(Vector3f&, Vector3f&, QString&, QColor&);
+    void addDetail(Vector3f&, QString&, QColor&);
     void editDetail(const int&, Vector3f&, Vector3f&, Vector3f&);
 
     void addLight(const Vector3f&, const float&);

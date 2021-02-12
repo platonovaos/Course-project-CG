@@ -74,9 +74,9 @@ void Drawer::draw()
 }
 
 
-void Drawer::addDetail(Vector3f& center, Vector3f& scale, QString& filename, QColor& color)
+void Drawer::addDetail(Vector3f& center, QString& filename, QColor& color)
 {
-    scene.addModel(Model(filename.toStdString().c_str(), color, center), scale);
+    scene.addDetail(Figure(filename.toStdString().c_str(), color, center));
 }
 
 void Drawer::editDetail(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
@@ -124,7 +124,7 @@ void Drawer::movingCamera(const float& speed)
 
 // Private methods
 // Main draw processing methods
-void Drawer::objectProcessing(Model& model, Vector3f& camPos, Vector3f& camDir, Vector3f& camUp)
+void Drawer::objectProcessing(Figure& model, Vector3f& camPos, Vector3f& camDir, Vector3f& camUp)
 {
     size_t i, j;
     bool skip;

@@ -4,7 +4,7 @@
 
 Scene::Scene() :
     mainCamera(Camera()),
-    models(std::vector<Model>()),
+    details(std::vector<Figure>()),
     lightSources(std::vector<LightSourcePoint>())
 {
 
@@ -13,25 +13,24 @@ Scene::Scene() :
 
 int Scene::countDetails()
 {
-    return models.size();
+    return details.size();
 }
 
-void Scene::addModel(const Model& newModel, const Vector3f& scale)
+void Scene::addDetail(const Figure& newModel)
 {
-    models.push_back(newModel);
-    models.back().scale(scale);
+    details.push_back(newModel);
 }
 
-Model& Scene::getModel(const int& idx)
+Figure& Scene::getModel(const int& idx)
 {
-    return models[idx];
+    return details[idx];
 }
 
 void Scene::editModel(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
 {
-    models[idx].setCenter(center);
-    models[idx].scale(scale);
-    models[idx].rotate(rotate);
+    details[idx].setCenter(center);
+    details[idx].scale(scale);
+    details[idx].rotate(rotate);
 }
 
 
