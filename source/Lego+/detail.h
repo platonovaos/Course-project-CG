@@ -14,8 +14,6 @@ struct DetailParams
     QString detailName;
 
     QColor color;
-
-    Point en;
 };
 
 class Detail

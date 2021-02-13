@@ -5,13 +5,11 @@
 #include <QImage>
 #include <QPixmap>
 #include <QKeyEvent>
-
 #include <string>
 #include <chrono>
 
 #include "detail.h"
 #include "light.h"
-
 #include "MathObjects/vector3.h"
 #include "drawer.h"
 
@@ -34,32 +32,23 @@ private:
     int numDetails, numSprite, numLight;
 
     std::vector<Vector3f> centersD;
-    std::vector<Vector3f> centersS;
     std::vector<Vector3f> lightPos;
 
     void initDrawer();
-    void initButton();
+    void initDetailChanges();
+    void initLightChanges();
 
     void keyPressEvent(QKeyEvent *event);
 
-    Detail *addModelWindow;
-    DetailParams addModelparams;
-
-    Light *addLightWindow;
-    LightParams addLightParams;
+    Detail *detail;
+    Light *light;
 
 private slots:
-    void changeLight();
-    void applyLightChange();
-    void cancelLineEditsLight();
-
-    // Window
     void on_addDetail_clicked();
     void on_removeDetail_clicked();
-    void setAddModelParams(DetailParams&);
-    void applyModelChange();
+    void on_changeDetail_clicked();
 
-    void on_pushButton_addLight_clicked();
-    void setLightParams(LightParams&);
+    void on_addLight_clicked();
+    void on_changeLight_clicked();
 };
 #endif // MAINWINDOW_H

@@ -3,14 +3,13 @@
 
 #include <QImage>
 #include <QGraphicsScene>
-
 #include <cmath>
 #include <string>
 
 #include "zbuffer.h"
 #include "scene.h"
 
-#define FAULT 500
+const int FAULT = 500;
 
 class Drawer : public QGraphicsScene
 {
@@ -41,7 +40,6 @@ private:
     void updateScreen();
     void clearScreen();
 
-
     void objectProcessing(Figure&, Vector3f&, Vector3f&, Vector3f&);
     float lightProcessing(const Vector3f&, const Vector3f&);
     void triangleProcessing(Vector3i&, Vector3i&, Vector3i&,
@@ -62,6 +60,7 @@ public:
 
     void addLight(const Vector3f&, const float&);
     void editLight(const int&, const Vector3f&, const float& power = 500);
+    void removeLight();
 
     void upDownCamera(const float&);
     void rotateCamera(const float&);

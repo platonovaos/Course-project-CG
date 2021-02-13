@@ -17,7 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->centralwidget->setStyleSheet("QWidget {background: rgba(250, 250, 250, 255);}");
 
     initDrawer();
-    initButton();
+    initDetailChanges();
+    initLightChanges();
 
     numDetails = 0;
     numSprite = 0;
@@ -25,7 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     lightPos.push_back(Vector3f(100, 1000, 100));
     drawer->addLight(Vector3f(100, 1000, 100), 1300);
-    ui->comboBox_light->addItem("Main light");
 }
 
 MainWindow::~MainWindow()
@@ -47,30 +47,67 @@ void MainWindow::initDrawer()
     ui->graphicsView->setAlignment(Qt::AlignCenter);
 
     ui->graphicsView->setScene(drawer);
-
-    ui->le_mmove_x->setText("0");
-    ui->le_mmove_y->setText("0");
-    ui->le_mmove_z->setText("0");
-
-    ui->le_mscale_x->setText("1");
-    ui->le_mscale_y->setText("1");
-    ui->le_mscale_z->setText("1");
-
-    ui->le_mrotate_x->setText("0");
-    ui->le_mrotate_y->setText("0");
-    ui->le_mrotate_z->setText("0");
 }
 
-void MainWindow::initButton()
+void MainWindow::initDetailChanges()
 {
-    connect(ui->pushButton_mapply, SIGNAL(released()), this, SLOT(applyModelChange()));
+    ui->dMoveX->setText("0");
+    ui->dMoveY->setText("0");
+    ui->dMoveZ->setText("0");
 
-    connect(ui->pushButton_lapply, SIGNAL(released()), this, SLOT(applyLightChange()));
-    connect(ui->pushButton_lcancel, SIGNAL(released()), this, SLOT(cancelLineEditsLight()));
+    ui->dScaleX->setText("1");
+    ui->dScaleY->setText("1");
+    ui->dScaleZ->setText("1");
+
+    ui->dRotateX->setText("0");
+    ui->dRotateY->setText("0");
+    ui->dRotateZ->setText("0");
+}
+
+void MainWindow::initLightChanges()
+{
+    ui->lMoveX->setText("100");
+    ui->lMoveY->setText("100");
+    ui->lMoveZ->setText("100");
+
+    ui->lPower->setText("200");
 }
 
 
-void MainWindow::applyModelChange()
+//Detail
+void MainWindow::on_addDetail_clicked()
+{
+    detail = new Detail(numDetails);
+    DetailParams params = detail->getParameters();
+
+    Vector3f center(params.move.X, params.move.Y, params.move.Z);
+    Vector3f scale(params.scale.X, params.scale.Y, params.scale.Z);
+
+    drawer->addDetail(center, scale, params.filename, params.color);
+
+    centersD.push_back(center);
+    numDetails++;
+
+    frames = 0;
+    frameTime = 0;
+    drawer->draw();
+}
+
+void MainWindow::on_removeDetail_clicked()
+{
+    if (numDetails <= 0) {
+        return;
+    }
+
+    numDetails--;
+    drawer->removeDetail();
+
+    drawer->draw();
+
+    initDetailChanges();
+}
+
+void MainWindow::on_changeDetail_clicked()
 {
     if (centersD.size() == 0) {
         return;
@@ -80,114 +117,89 @@ void MainWindow::applyModelChange()
 
     Vector3f center, scale, rotate;
 
-    if (ui->le_mmove_x->text().isEmpty() ||
-        ui->le_mmove_y->text().isEmpty() ||
-        ui->le_mmove_z->text().isEmpty()) {
+    //move
+    QString moveXStr = ui->dMoveX->text();
+    QString moveYStr = ui->dMoveY->text();
+    QString moveZStr = ui->dMoveZ->text();
+
+    if (moveXStr.isEmpty() || moveYStr.isEmpty() || moveZStr.isEmpty()) {
         center = Vector3f(centersD[idx]);
     }
     else {
-        center = Vector3f(ui->le_mmove_x->text().toFloat(),
-                          ui->le_mmove_y->text().toFloat(),
-                          ui->le_mmove_z->text().toFloat());
+        center = Vector3f(moveXStr.toFloat(), moveYStr.toFloat(), moveZStr.toFloat());
     }
 
-    if (ui->le_mscale_x->text().isEmpty() ||
-        ui->le_mscale_y->text().isEmpty() ||
-        ui->le_mscale_z->text().isEmpty()) {
+    //scale
+    QString scaleXStr = ui->dScaleX->text();
+    QString scaleYStr = ui->dScaleY->text();
+    QString scaleZStr = ui->dScaleZ->text();
+
+    if (scaleXStr.isEmpty() || scaleYStr.isEmpty() || scaleZStr.isEmpty()) {
         scale = Vector3f(1, 1, 1);
     }
     else {
-        scale = Vector3f(ui->le_mscale_x->text().toFloat(),
-                         ui->le_mscale_y->text().toFloat(),
-                         ui->le_mscale_z->text().toFloat());
+        scale = Vector3f(scaleXStr.toFloat(), scaleYStr.toFloat(), scaleZStr.toFloat());
     }
 
-    if (ui->le_mrotate_x->text().isEmpty() ||
-        ui->le_mrotate_y->text().isEmpty() ||
-        ui->le_mrotate_z->text().isEmpty()) {
+    //rotate
+    QString rotateXStr = ui->dRotateX->text();
+    QString rotateYStr = ui->dRotateY->text();
+    QString rotateZStr = ui->dRotateZ->text();
+
+    if (rotateXStr.isEmpty() || rotateYStr.isEmpty() || rotateZStr.isEmpty()) {
         rotate = Vector3f(0, 0, 0);
     }
     else {
-        rotate = Vector3f(ui->le_mrotate_x->text().toFloat(),
-                          ui->le_mrotate_y->text().toFloat(),
-                          ui->le_mrotate_z->text().toFloat());
+        rotate = Vector3f(rotateXStr.toFloat(), rotateYStr.toFloat(), rotateZStr.toFloat());
     }
 
     drawer->editDetail(idx, center, scale, rotate);
     drawer->draw();
+    initDetailChanges();
 }
 
-void MainWindow::on_removeDetail_clicked()
+void MainWindow::on_addLight_clicked()
 {
-    numDetails--;
-    drawer->removeDetail();
+    light = new Light(numLight);
+    LightParams params = light->getParameters();
 
-    ui->le_mmove_x->setText("0");
-    ui->le_mmove_y->setText("0");
-    ui->le_mmove_z->setText("0");
+    Vector3f pos(params.set.X, params.set.Y, params.set.Z);
+    drawer->addLight(pos, params.power);
 
-    ui->le_mscale_x->setText("1");
-    ui->le_mscale_y->setText("1");
-    ui->le_mscale_z->setText("1");
-
-    ui->le_mrotate_x->setText("0");
-    ui->le_mrotate_y->setText("0");
-    ui->le_mrotate_z->setText("0");
+    lightPos.push_back(pos);
 
     drawer->draw();
 }
 
-void MainWindow::changeLight()
+void MainWindow::on_changeLight_clicked()
 {
-    int idx = ui->comboBox_light->currentIndex();
-    Vector3f currentCenter = lightPos[idx];
-
-    ui->le_lmove_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_lmove_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_lmove_z->setText(std::to_string(currentCenter.z).c_str());
-
-    ui->le_power->setText("500");
-}
-
-void MainWindow::applyLightChange()
-{
-    if (lightPos.size() == 0)
+    if (lightPos.size() == 0) {
         return;
+    }
 
-    int idx = ui->comboBox_light->currentIndex();
+    int idx = numLight - 1;
     Vector3f pos;
 
-    if (ui->le_lmove_x->text().isEmpty() ||
-        ui->le_lmove_y->text().isEmpty() ||
-        ui->le_lmove_z->text().isEmpty())
-    {
+    QString moveXStr = ui->lMoveX->text();
+    QString moveYStr = ui->lMoveX->text();
+    QString moveZStr = ui->lMoveX->text();
+
+    if (moveXStr.isEmpty() || moveYStr.isEmpty() || moveZStr.isEmpty()) {
         pos = lightPos[idx];
     }
-    else
-    {
-        pos = Vector3f(ui->le_lmove_x->text().toFloat(),
-                       ui->le_lmove_y->text().toFloat(),
-                       ui->le_lmove_z->text().toFloat());
+    else {
+        pos = Vector3f(moveXStr.toFloat(), moveYStr.toFloat(), moveZStr.toFloat());
     }
 
-    if (ui->le_power->text().isEmpty())
+    QString powerStr = ui->lPower->text();
+    if (powerStr.isEmpty()) {
         drawer->editLight(idx, pos);
-    else
-        drawer->editLight(idx, pos, ui->le_power->text().toFloat());
+    }
+    else {
+        drawer->editLight(idx, pos, ui->lPower->text().toFloat());
+    }
 
     drawer->draw();
-}
-
-void MainWindow::cancelLineEditsLight()
-{
-    int idx = ui->comboBox_light->currentIndex();
-    Vector3f currentCenter = lightPos[idx];
-
-    ui->le_lmove_x->setText(std::to_string(currentCenter.x).c_str());
-    ui->le_lmove_y->setText(std::to_string(currentCenter.y).c_str());
-    ui->le_lmove_z->setText(std::to_string(currentCenter.z).c_str());
-
-    ui->le_power->setText("200");
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -222,51 +234,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         drawer->rotateCamera(0.05);
         break;
     }
-
-    drawer->draw();
-}
-
-
-
-void MainWindow::on_addDetail_clicked()
-{
-    addModelWindow = new Detail(numDetails);
-    DetailParams params = addModelWindow->getParameters();
-    setAddModelParams(params);
-}
-
-void MainWindow::setAddModelParams(DetailParams& newParams)
-{
-    Vector3f center(newParams.move.X, newParams.move.Y, newParams.move.Z);
-    Vector3f scaleK(newParams.scale.X, newParams.scale.Y, newParams.scale.Z);
-
-    drawer->addDetail(center, scaleK, newParams.filename, newParams.color);
-
-    centersD.push_back(center);
-
-    numDetails++;
-
-    frames = 0;
-    frameTime = 0;
-    drawer->draw();
-}
-
-
-// Add new light
-void MainWindow::on_pushButton_addLight_clicked()
-{
-    addLightWindow = new Light(numLight);
-    LightParams params = addLightWindow->getParameters();
-    setLightParams(params);
-}
-
-void MainWindow::setLightParams(LightParams& newParams)
-{
-    Vector3f pos(newParams.set.X, newParams.set.Y, newParams.set.Z);
-    drawer->addLight(pos, newParams.power);
-
-    lightPos.push_back(pos);
-    ui->comboBox_light->addItem(newParams.name);
 
     drawer->draw();
 }

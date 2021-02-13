@@ -66,7 +66,7 @@ void Drawer::draw()
     int numDetails = scene.countDetails();
 
     for (int i = 0; i < numDetails; i++) {
-        objectProcessing(scene.getModel(i), camPos, camDir, camUp);
+        objectProcessing(scene.getDetail(i), camPos, camDir, camUp);
     }
 
     updateCanvas();
@@ -81,7 +81,7 @@ void Drawer::addDetail(Vector3f& center, Vector3f& scaleK, QString& filename, QC
 
 void Drawer::editDetail(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
 {
-    scene.editModel(idx, center, scale, rotate);
+    scene.editDetail(idx, center, scale, rotate);
 }
 
 void Drawer::removeDetail()
@@ -100,6 +100,11 @@ void Drawer::addLight(const Vector3f& pos, const float& power)
 void Drawer::editLight(const int& idx, const Vector3f& pos, const float& power)
 {
     scene.editLight(idx, pos, power);
+}
+
+void Drawer::removeLight()
+{
+    scene.removeLightSource();
 }
 
 
@@ -185,7 +190,7 @@ float Drawer::lightProcessing(const Vector3f& vert, const Vector3f& norm)
     float wholeIntensity = 0;
     float intensity;
 
-    size_t lights = scene.getLightSourceCount();
+    size_t lights = scene.countLightSource();
 
     for (size_t i = 0; i < lights; i++)
     {

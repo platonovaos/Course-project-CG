@@ -15,7 +15,6 @@ SOURCES += \
     SceneObjects/camera.cpp \
     SceneObjects/lightsourcepoint.cpp \
     SceneObjects/model.cpp \
-    SceneObjects/sprite.cpp \
     drawer.cpp \
     main.cpp \
     mainwindow.cpp \
