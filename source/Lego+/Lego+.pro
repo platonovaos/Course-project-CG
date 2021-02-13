@@ -14,14 +14,14 @@ SOURCES += \
     MathObjects/vector3.cpp \
     SceneObjects/camera.cpp \
     SceneObjects/lightsourcepoint.cpp \
-    SceneObjects/model.cpp \
     drawer.cpp \
     main.cpp \
     mainwindow.cpp \
     scene.cpp \
     zbuffer.cpp \
     detail.cpp \
-    light.cpp
+    light.cpp \
+    SceneObjects/figure.cpp
 
 HEADERS += \
     MathObjects/matrix.h \
@@ -30,7 +30,6 @@ HEADERS += \
     MathObjects/vector3.hpp \
     SceneObjects/camera.h \
     SceneObjects/lightsourcepoint.h \
-    SceneObjects/model.h \
     SceneObjects/sprite.h \
     drawer.h \
     mainwindow.h \
@@ -38,7 +37,8 @@ HEADERS += \
     zbuffer.h \
     light.h \
     MathObjects/point.h \
-    detail.h
+    detail.h \
+    SceneObjects/figure.h
 
 FORMS += mainwindow.ui
 

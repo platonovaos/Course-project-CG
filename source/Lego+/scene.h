@@ -1,7 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "./SceneObjects/model.h"
+#include "./SceneObjects/figure.h"
 #include "./SceneObjects/camera.h"
 #include "./SceneObjects/lightsourcepoint.h"
 

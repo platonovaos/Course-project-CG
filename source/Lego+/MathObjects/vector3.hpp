@@ -3,28 +3,27 @@
 
 #include "vector3.h"
 
-// Constructors
 template<class t>
-Vector3<t>::Vector3() : x(t()), y(t()), z(t()), w(1)
+Vector3<t>::Vector3() :
+    x(t()), y(t()), z(t()), w(1)
 {
 
 }
 
 template<class t>
-Vector3<t>::Vector3(t x, t y, t z, t w) : x(x), y(y), z(z), w(w)
+Vector3<t>::Vector3(t x, t y, t z, t w) :
+    x(x), y(y), z(z), w(w)
 {
 
 }
 
 template<class t>
-Vector3<t>::Vector3(Matrix m) : x(m[0][0] / m[3][0]), y(m[1][0] / m[3][0]), z(m[2][0] / m[3][0]), w(1)
+Vector3<t>::Vector3(Matrix m) :
+    x(m[0][0] / m[3][0]), y(m[1][0] / m[3][0]), z(m[2][0] / m[3][0]), w(1)
 {
 
 }
 
-
-
-// Operators
 template<class t>
 Vector3<t>& Vector3<t>::operator =(const Vector3<t>& v)
 {
@@ -51,16 +50,13 @@ Vector3<t>  Vector3<t>::operator -(const Vector3<t>& v) const
 }
 
 template<class t>
-t           Vector3<t>::operator *(const Vector3<t>& v) const
+t Vector3<t>::operator *(const Vector3<t>& v) const
 {
     return x * v.x + y * v.y + z * v.z;
 }
 
-
-
-// Other interesting operators
 template<class t>
-Vector3<t>  Vector3<t>::operator ^(const Vector3<t>& v) const
+Vector3<t> Vector3<t>::operator ^(const Vector3<t>& v) const
 {
     return Vector3<t>(y * v.z - z * v.y,
                       z * v.x - x * v.z,
@@ -68,13 +64,13 @@ Vector3<t>  Vector3<t>::operator ^(const Vector3<t>& v) const
 }
 
 template<class t>
-Vector3<t>  Vector3<t>::operator *(const float& f) const
+Vector3<t> Vector3<t>::operator *(const float& f) const
 {
     return Vector3<t>(x * f, y * f, z * f);
 }
 
 template<class t>
-t&          Vector3<t>::operator[](const int& idx)
+t& Vector3<t>::operator[](const int& idx)
 {
     if (idx <= 0)
         return x;
@@ -86,9 +82,6 @@ t&          Vector3<t>::operator[](const int& idx)
         return w;
 }
 
-
-
-// Other methods
 template<class t>
 float Vector3<t>::norm() const
 {

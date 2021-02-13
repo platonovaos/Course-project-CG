@@ -21,14 +21,12 @@ public:
     int ncols();
 
     std::vector<float>& operator[](const int&);
-    Matrix              operator *(const Matrix&);
+    Matrix operator *(const Matrix&);
 
     void fill(const float&);
     float get(const int&, const int&);
 
     static Matrix identity(const int&);
-    Matrix transpose();
-    Matrix inverse();
 };
 
 

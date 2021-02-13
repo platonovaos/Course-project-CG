@@ -29,7 +29,7 @@ private:
     Ui::MainWindow *ui;
     Drawer *drawer;
 
-    int numDetails, numSprite, numLight;
+    int numDetails, numLight;
 
     std::vector<Vector3f> centersD;
     std::vector<Vector3f> lightPos;

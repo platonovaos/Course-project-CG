@@ -34,7 +34,9 @@ Figure& Scene::getDetail(const int& idx)
 
 void Scene::editDetail(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
 {
-    details[idx].setCenter(center);
+    //details[idx].setCenter(center);
+
+    details[idx].move(center);
     details[idx].scale(scale);
     details[idx].rotate(rotate);
 }

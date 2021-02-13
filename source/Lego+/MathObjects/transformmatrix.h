@@ -1,10 +1,8 @@
 #ifndef TRANSFORMMATRIX_H
 #define TRANSFORMMATRIX_H
 
-#include "matrix.h"
-
 #include <math.h>
-
+#include "matrix.h"
 
 class MoveMatrix : public Matrix
 {

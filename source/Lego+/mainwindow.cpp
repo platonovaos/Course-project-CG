@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("Lego");
-    this->resize(1025, 829);
+    this->resize(1025, 818);
 
     ui->centralwidget->setStyleSheet("QWidget {background: rgba(250, 250, 250, 255);}");
 
@@ -21,7 +21,6 @@ MainWindow::MainWindow(QWidget *parent) :
     initLightChanges();
 
     numDetails = 0;
-    numSprite = 0;
     numLight = 0;
 
     lightPos.push_back(Vector3f(100, 1000, 100));
@@ -67,10 +66,10 @@ void MainWindow::initDetailChanges()
 void MainWindow::initLightChanges()
 {
     ui->lMoveX->setText("100");
-    ui->lMoveY->setText("100");
+    ui->lMoveY->setText("1000");
     ui->lMoveZ->setText("100");
 
-    ui->lPower->setText("200");
+    ui->lPower->setText("1300");
 }
 
 

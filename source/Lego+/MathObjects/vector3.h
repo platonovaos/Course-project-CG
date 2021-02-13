@@ -5,7 +5,6 @@
 #include <cmath>
 #include <vector>
 
-#define TO_RAD_180 180
 #define EPS 1e-6
 
 class Matrix;
@@ -22,21 +21,15 @@ public:
 
     template<class u> Vector3<t>(const Vector3<u>&);
 
-
-    // Operators
     Vector3<t>& operator =(const Vector3<t>&);
-    Vector3<t>  operator +(const Vector3<t>&) const;
-    Vector3<t>  operator -(const Vector3<t>&) const;
-    t           operator *(const Vector3<t>&) const;
+    Vector3<t> operator +(const Vector3<t>&) const;
+    Vector3<t> operator -(const Vector3<t>&) const;
+    t operator *(const Vector3<t>&) const;
 
-
-    // Other interesting operators
     Vector3<t>  operator ^(const Vector3<t>&) const;
     Vector3<t>  operator *(const float&) const;
     t&          operator[](const int&);
 
-
-    // Other methods
     float norm() const;
     Vector3<t>& normalize(t l = 1);
     void transform(const std::shared_ptr<Matrix>);
