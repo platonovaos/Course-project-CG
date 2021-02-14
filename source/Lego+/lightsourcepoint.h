@@ -3,8 +3,8 @@
 
 #include "baseObj/vector3.h"
 
-#define LIGHT_REFLECT 1
-#define BG_LIGHT 0.3
+const float LIGHT_REFLECT = 1;
+const float BG_LIGHT = 0.3f;
 
 class LightSourcePoint
 {

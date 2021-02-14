@@ -73,9 +73,9 @@ void MainWindow::initDetailChanges()
 
 void MainWindow::initLightChanges()
 {
-    ui->lMoveX->setText("50");
-    ui->lMoveY->setText("500");
-    ui->lMoveZ->setText("50");
+    ui->lMoveX->setText("0");
+    ui->lMoveY->setText("0");
+    ui->lMoveZ->setText("10");
 
     ui->lPower->setText("500");
 }
@@ -175,6 +175,7 @@ void MainWindow::on_addLight_clicked()
     drawer->addLight(pos, params.power);
 
     lightPos.push_back(pos);
+    numLight++;
 
     drawer->draw();
 }
@@ -189,8 +190,8 @@ void MainWindow::on_changeLight_clicked()
     Vector3f pos;
 
     QString moveXStr = ui->lMoveX->text();
-    QString moveYStr = ui->lMoveX->text();
-    QString moveZStr = ui->lMoveX->text();
+    QString moveYStr = ui->lMoveY->text();
+    QString moveZStr = ui->lMoveZ->text();
 
     if (moveXStr.isEmpty() || moveYStr.isEmpty() || moveZStr.isEmpty()) {
         pos = lightPos[idx];
@@ -204,7 +205,7 @@ void MainWindow::on_changeLight_clicked()
         drawer->editLight(idx, pos);
     }
     else {
-        drawer->editLight(idx, pos, ui->lPower->text().toFloat());
+        drawer->editLight(idx, pos, powerStr.toFloat());
     }
 
     drawer->draw();

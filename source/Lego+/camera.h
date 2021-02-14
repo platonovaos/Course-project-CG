@@ -4,7 +4,7 @@
 #include "baseObj/vector3.h"
 #include "baseObj/vector3.hpp"
 
-#define DEPTH 255
+const int  DEPTH = 255;
 
 class Camera
 {

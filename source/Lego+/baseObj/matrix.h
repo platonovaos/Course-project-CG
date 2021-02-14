@@ -11,7 +11,7 @@ class Matrix
 {
 protected:
     std::vector<std::vector<float>> data;
-    int rows, cols;
+    int numRows, numCols;
 
 public:
     Matrix(int r = 4, int c = 4);

@@ -2,7 +2,7 @@
 
 Matrix::Matrix(Vector3f v) :
     data(std::vector<std::vector<float>>(4, std::vector<float>(1, 1.f))),
-    rows(4), cols(1)
+    numRows(4), numCols(1)
 {
     data[0][0] = v.x;
     data[1][0] = v.y;
@@ -11,7 +11,7 @@ Matrix::Matrix(Vector3f v) :
 
 Matrix::Matrix(const int r, int c) :
     data(std::vector<std::vector<float>>(r, std::vector<float>(c, 0.f))),
-    rows(r), cols(c)
+    numRows(r), numCols(c)
 {
 
 }
@@ -20,12 +20,12 @@ Matrix::Matrix(const int r, int c) :
 
 int Matrix::nrows()
 {
-    return rows;
+    return numRows;
 }
 
 int Matrix::ncols()
 {
-    return cols;
+    return numCols;
 }
 
 
@@ -36,13 +36,13 @@ std::vector<float>& Matrix::operator[](const int& i)
 
 Matrix Matrix::operator *(const Matrix& a)
 {
-    Matrix result(rows, a.cols);
+    Matrix result(numRows, a.numCols);
 
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < a.cols; j++) {
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < a.numCols; j++) {
             result.data[i][j] = 0.0f;
 
-            for (int k = 0; k < rows; k++) {
+            for (int k = 0; k < numRows; k++) {
                 result.data[i][j] += data[i][k] * a.data[k][j];
             }
         }
@@ -54,8 +54,8 @@ Matrix Matrix::operator *(const Matrix& a)
 
 void Matrix::fill(const float& v)
 {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
+    for (int i = 0; i < numRows; i++) {
+        for (int j = 0; j < numCols; j++) {
             data[i][j] = v;
         }
     }

@@ -91,8 +91,9 @@ std::vector<int> Figure::face(const int& idx)
     std::vector<int> face;
     size_t size = faces[idx].size();
 
-    for (size_t i = 0; i < size; i++)
+    for (size_t i = 0; i < size; i++) {
         face.push_back(faces[idx][i][0]);
+    }
 
     return face;
 }
@@ -125,8 +126,7 @@ void Figure::normalsProcessing()
 {
     size_t nface = faces.size();
 
-    for (size_t i = 0; i < nface; i++)
-    {
+    for (size_t i = 0; i < nface; i++) {
         std::vector<int> f = face(i);
 
         setNorm(i, 0, normalCalculate(vert(f[0]), vert(f[1]), vert(f[2])));
