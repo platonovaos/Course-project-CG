@@ -9,11 +9,11 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    MathObjects/matrix.cpp \
-    MathObjects/transformmatrix.cpp \
-    MathObjects/vector3.cpp \
-    SceneObjects/camera.cpp \
-    SceneObjects/lightsourcepoint.cpp \
+    baseObj/matrix.cpp \
+    baseObj/transformmatrix.cpp \
+    baseObj/vector3.cpp \
+    camera.cpp \
+    lightsourcepoint.cpp \
     drawer.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -21,24 +21,23 @@ SOURCES += \
     zbuffer.cpp \
     detail.cpp \
     light.cpp \
-    SceneObjects/figure.cpp
+    figure.cpp
 
 HEADERS += \
-    MathObjects/matrix.h \
-    MathObjects/transformmatrix.h \
-    MathObjects/vector3.h \
-    MathObjects/vector3.hpp \
-    SceneObjects/camera.h \
-    SceneObjects/lightsourcepoint.h \
-    SceneObjects/sprite.h \
+    baseObj/matrix.h \
+    baseObj/transformmatrix.h \
+    baseObj/vector3.h \
+    baseObj/vector3.hpp \
+    camera.h \
+    lightsourcepoint.h \
     drawer.h \
     mainwindow.h \
     scene.h \
     zbuffer.h \
     light.h \
-    MathObjects/point.h \
+    baseObj/point.h \
     detail.h \
-    SceneObjects/figure.h
+    figure.h
 
 FORMS += mainwindow.ui
 

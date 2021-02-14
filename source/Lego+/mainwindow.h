@@ -10,7 +10,7 @@
 
 #include "detail.h"
 #include "light.h"
-#include "MathObjects/vector3.h"
+#include "baseObj/vector3.h"
 #include "drawer.h"
 
 QT_BEGIN_NAMESPACE
@@ -35,6 +35,7 @@ private:
     std::vector<Vector3f> lightPos;
 
     void initDrawer();
+    void initTypeDetails();
     void initDetailChanges();
     void initLightChanges();
 

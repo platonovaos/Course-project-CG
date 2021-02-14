@@ -74,16 +74,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QComboBox" name="typeDetail">
-    <property name="geometry">
-     <rect>
-      <x>810</x>
-      <y>40</y>
-      <width>201</width>
-      <height>25</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="addDetail">
     <property name="geometry">
      <rect>
@@ -509,6 +499,16 @@
       </property>
      </widget>
     </widget>
+   </widget>
+   <widget class="QComboBox" name="typeDetail">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>40</y>
+      <width>201</width>
+      <height>25</height>
+     </rect>
+    </property>
    </widget>
   </widget>
  </widget>

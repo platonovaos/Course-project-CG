@@ -1,9 +1,9 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "./SceneObjects/figure.h"
-#include "./SceneObjects/camera.h"
-#include "./SceneObjects/lightsourcepoint.h"
+#include "figure.h"
+#include "camera.h"
+#include "lightsourcepoint.h"
 
 class Scene
 {

@@ -2,7 +2,7 @@
 #define SETLIGHTWINDOW_H
 
 #include <QString>
-#include "MathObjects/point.h"
+#include "baseObj/point.h"
 
 struct LightParams
 {

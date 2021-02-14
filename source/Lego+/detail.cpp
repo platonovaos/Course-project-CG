@@ -1,10 +1,9 @@
 #include "detail.h"
 #include "ui_addmodelwindow.h"
 
-Detail::Detail(const int idx)
+Detail::Detail(const int idx, TypeDetail type)
 {
-    params.filename = "/home/main/Desktop/BMSTU/5sem/Курсач/код/Lego+/details/cube.h";
-    params.detailName = ("detail " + std::to_string(idx)).c_str();
+    params.filename = defineFile(type);
 
     params.move.X = 0;
     params.move.Y = 0;
@@ -25,4 +24,36 @@ Detail::~Detail()
 DetailParams Detail::getParameters()
 {
     return params;
+}
+
+
+TypeDetail defineType(QString typeStr)
+{
+    TypeDetail type = emptyD;
+    if (typeStr == "Куб") {
+        type = cube;
+    }
+
+    if (typeStr == "Сфера") {
+        type = sphere;
+    }
+
+    return type;
+}
+
+QString defineFile(TypeDetail type)
+{
+    QString filename = "";
+    switch (type) {
+        case cube:
+            filename = "/home/main/Desktop/BMSTU/5sem/Курсач/код/Lego+/details/cube.h";
+            break;
+        case sphere:
+            filename = "/home/main/Desktop/BMSTU/5sem/Курсач/код/Lego+/details/sphere.h";
+            break;
+        default:
+            break;
+    }
+
+    return filename;
 }

@@ -3,7 +3,14 @@
 
 #include <QColor>
 #include <cstdlib>
-#include "MathObjects/point.h"
+#include "baseObj/point.h"
+
+enum TypeDetail
+{
+    emptyD,
+    cube,
+    sphere
+};
 
 struct DetailParams
 {
@@ -19,7 +26,7 @@ struct DetailParams
 class Detail
 {
 public:
-    Detail(const int idx);
+    Detail(const int idx, TypeDetail type);
     ~Detail();
 
     DetailParams getParameters();
@@ -27,5 +34,8 @@ public:
 private:
     DetailParams params;
 };
+
+TypeDetail defineType(QString typeStr);
+QString defineFile(TypeDetail type);
 
 #endif // DETAIL_H

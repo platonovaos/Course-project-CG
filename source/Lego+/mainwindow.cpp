@@ -3,8 +3,8 @@
 
 #include <QDebug>
 
-int frames = 0;
-auto frameTime = 0;
+static int frames = 0;
+static auto frameTime = 0;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->centralwidget->setStyleSheet("QWidget {background: rgba(250, 250, 250, 255);}");
 
     initDrawer();
+    initTypeDetails();
     initDetailChanges();
     initLightChanges();
 
@@ -48,6 +49,13 @@ void MainWindow::initDrawer()
     ui->graphicsView->setScene(drawer);
 }
 
+void MainWindow::initTypeDetails()
+{
+    ui->typeDetail->addItem("");
+    ui->typeDetail->addItem("Куб");
+    ui->typeDetail->addItem("Сфера");
+}
+
 void MainWindow::initDetailChanges()
 {
     ui->dMoveX->setText("0");
@@ -65,18 +73,19 @@ void MainWindow::initDetailChanges()
 
 void MainWindow::initLightChanges()
 {
-    ui->lMoveX->setText("100");
-    ui->lMoveY->setText("1000");
-    ui->lMoveZ->setText("100");
+    ui->lMoveX->setText("50");
+    ui->lMoveY->setText("500");
+    ui->lMoveZ->setText("50");
 
-    ui->lPower->setText("1300");
+    ui->lPower->setText("500");
 }
 
 
 //Detail
 void MainWindow::on_addDetail_clicked()
 {
-    detail = new Detail(numDetails);
+    TypeDetail type = defineType(ui->typeDetail->currentText());
+    detail = new Detail(numDetails, type);
     DetailParams params = detail->getParameters();
 
     Vector3f center(params.move.X, params.move.Y, params.move.Z);
@@ -125,7 +134,7 @@ void MainWindow::on_changeDetail_clicked()
         center = Vector3f(centersD[idx]);
     }
     else {
-        center = Vector3f(moveXStr.toFloat(), moveYStr.toFloat(), moveZStr.toFloat());
+        center = Vector3f(moveXStr.toFloat(), -(moveYStr.toFloat()), moveZStr.toFloat());
     }
 
     //scale
@@ -224,13 +233,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         drawer->upDownCamera(0.25);
         break;
     case Qt::Key_J:
-        drawer->rotateCamera(-0.05);
+        drawer->rotateCamera(-0.05f);
         break;
     case Qt::Key_K:
         drawer->upDownCamera(-0.25);
         break;
     case Qt::Key_L:
-        drawer->rotateCamera(0.05);
+        drawer->rotateCamera(0.05f);
         break;
     }
 

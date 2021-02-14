@@ -3,9 +3,9 @@
 #include <QDebug>
 
 Scene::Scene() :
-    mainCamera(Camera()),
     details(std::vector<Figure>()),
-    lightSources(std::vector<LightSourcePoint>())
+    lightSources(std::vector<LightSourcePoint>()),
+    mainCamera(Camera())
 {
 
 }
@@ -34,8 +34,6 @@ Figure& Scene::getDetail(const int& idx)
 
 void Scene::editDetail(const int& idx, Vector3f& center, Vector3f& scale, Vector3f& rotate)
 {
-    //details[idx].setCenter(center);
-
     details[idx].move(center);
     details[idx].scale(scale);
     details[idx].rotate(rotate);
@@ -100,7 +98,7 @@ void Scene::upDownCamera(const float& speed)
 {
     Vector3f pos = mainCamera.getPosition();
 
-    if (fabs(pos.y + speed) < 1.25) {
+    if (fabs(pos.y + speed) < 1.25f) {
         mainCamera.upDown(speed);
     }
 }
