@@ -9,7 +9,8 @@ enum TypeDetail
 {
     emptyD,
     cube,
-    sphere
+    sphere,
+    cylinder
 };
 
 struct DetailParams
@@ -26,7 +27,7 @@ struct DetailParams
 class Detail
 {
 public:
-    Detail(const int idx, TypeDetail type);
+    Detail(TypeDetail type);
     ~Detail();
 
     DetailParams getParameters();

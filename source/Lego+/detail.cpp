@@ -1,7 +1,7 @@
 #include "detail.h"
 #include "ui_addmodelwindow.h"
 
-Detail::Detail(const int idx, TypeDetail type)
+Detail::Detail(TypeDetail type)
 {
     params.filename = defineFile(type);
 
@@ -38,6 +38,10 @@ TypeDetail defineType(QString typeStr)
         type = sphere;
     }
 
+    if (typeStr == "Цилиндр") {
+        type = cylinder;
+    }
+
     return type;
 }
 
@@ -50,6 +54,9 @@ QString defineFile(TypeDetail type)
             break;
         case sphere:
             filename = "/home/main/Desktop/BMSTU/5sem/Курсач/код/Lego+/details/sphere.h";
+            break;
+        case cylinder:
+            filename = "/home/main/Desktop/BMSTU/5sem/Курсач/код/Lego+/details/cylinder.h";
             break;
         default:
             break;

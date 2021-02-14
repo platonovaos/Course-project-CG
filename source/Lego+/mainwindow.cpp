@@ -54,6 +54,7 @@ void MainWindow::initTypeDetails()
     ui->typeDetail->addItem("");
     ui->typeDetail->addItem("Куб");
     ui->typeDetail->addItem("Сфера");
+    ui->typeDetail->addItem("Цилиндр");
 }
 
 void MainWindow::initDetailChanges()
@@ -85,7 +86,7 @@ void MainWindow::initLightChanges()
 void MainWindow::on_addDetail_clicked()
 {
     TypeDetail type = defineType(ui->typeDetail->currentText());
-    detail = new Detail(numDetails, type);
+    detail = new Detail(type);
     DetailParams params = detail->getParameters();
 
     Vector3f center(params.move.X, params.move.Y, params.move.Z);
