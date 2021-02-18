@@ -35,7 +35,7 @@ Detail::~Detail()
 
 QRectF Detail::boundingRect() const
 {
-    return QRectF (-40, -40, 80, 80);   // Ограничиваем область, в которой лежит треугольник
+    return QRectF (-40, -40, 80, 80);   // ГЋГЈГ°Г Г­ГЁГ·ГЁГўГ ГҐГ¬ Г®ГЎГ«Г Г±ГІГј, Гў ГЄГ®ГІГ®Г°Г®Г© Г«ГҐГ¦ГЁГІ ГІГ°ГҐГіГЈГ®Г«ГјГ­ГЁГЄ
 }
 
 void Detail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
